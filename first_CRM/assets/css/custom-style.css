@@ -1,0 +1,104 @@
+html, body{
+    background-color: #fbfbfb;
+}
+#kanban-container {
+    width: 100% !important;
+    padding: 15px;
+}
+.kanban-col {
+    width: 33.333%;
+    margin: 0;
+}
+.kanban-item {
+    width: 100%;
+}
+#sidebar {
+    background: #444444;
+}
+#sidebar-menu li a{
+    color: #CFA144;
+}
+#sidebar-menu > li:hover > a,
+#sidebar-menu > li.active > a{
+    background-color: #CFA144;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.navbar-default{
+    background-color: #444444;
+    box-shadow: none
+}
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover,
+#sidebar-toggle-md{
+    color: #CFA144;
+}
+.navbar-default .b-l {
+    border-left: 1px solid #CFA144;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover, .dropdown-menu > li > a:hover{
+    background-color: #CFA144 !important;
+    color: #ffffff;
+}
+.navbar-default .dropdown-menu,
+.navbar-default .list-group-item{
+    background: #444444;
+    color: #CFA144;
+    border: none;
+}
+.signin-box .panel-default{
+    background-color: #444444 !important;
+    color: #ffffff;
+}
+.signin-box .panel-default > .panel-heading{
+    background: #CFA144;
+    color: #ffffff;
+    border-color: #CFA144;
+}
+.signin-box a,
+.signin-box a:hover,
+.dropdown-menu > li > a{
+    color: #CFA144;
+}
+.app-alert-message a,
+.app-alert-message a:hover,
+.app-alert-message a:focus{
+    color: #ffffff;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active{
+    background: #CFA144;
+}
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open > .dropdown-toggle.btn-primary.focus, .open > .dropdown-toggle.btn-primary:focus, .open > .dropdown-toggle.btn-primary:hover{
+    background: #CFA144;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:active, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    border-color: #CFA144;
+}
+.nav-tabs > li > a:hover,
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:active, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    color: #CFA144;
+}
+.nav-tabs > li:not(.title-tab)::after{
+    background-color: #CFA144;
+}
+#project-overview-section{
+    overflow: hidden;
+}
+.users-info-area{
+    background: #CFA144;
+}
+.app-loader {
+    background: rgba(251, 251, 251, 0);
+}
+.app-loader .loading,
+.table-loader .loading{
+    width: 65px;
+    height: 65px;
+    border-radius:0%;
+    animation: spin 1.7s infinite linear;
+    -webkit-animation: spin 1.7s infinite linear;
+    border: solid 2px #CFA144;
+    /*border-top-color: #CFA144;*/
+}
