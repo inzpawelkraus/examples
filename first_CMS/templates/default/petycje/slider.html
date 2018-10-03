@@ -1,0 +1,33 @@
+<div  id="mainSlider"  class="fadeOut owl-carousel owl-theme">
+    {section name=aa loop=$articlesslider}
+    <div class="item">
+        <a href="{$articlesslider[aa].url}" title="Oddaj głos na petycjię: {$articlesslider[aa].title}">
+            {if $articlesslider[aa].photo.photo}
+            <img src="{$articlesslider[aa].photo.small}"/>
+            {else}
+            <img src="{$TPL_URL}/img/slide1.jpg"/>
+            {/if}
+
+            <span class="slideTitle">{$articlesslider[aa].title}</span>
+            <span class="progress"><span class="counterBox">{$articlesslider[aa].progress}</span>%</span>
+            <span class="info">Zebraliśmy </br><strong class="counterBox">{$articlesslider[aa].comm}</strong> </br>podpisów</span>
+            <span class="vote">Podpisz petycję</span>
+        </a>
+    </div>
+    {/section}
+</div>
+<script>
+    {literal}
+    $(document).ready(function () {
+            var owl = $('.fadeOut');
+            owl.owlCarousel({
+                items:1,
+                loop:true,
+                animateOut: 'fadeOut',
+                autoplay:true,
+                autoplayTimeout:3000,
+                autoplayHoverPause:true
+            });
+    });
+    {/literal}
+</script>

@@ -1,0 +1,15 @@
+<form method="post" action="{$BASE_URL}/logowanie.html">
+	<table align="center">
+		<tr>
+			<td>{$LANG._PAGE_LOGIN}</td><td><input class="text" type="text" name="login" style="width:100px" /></td>
+		</tr><tr>
+			<td>{$LANG._PAGE_NEW_PASS}</td><td><input class="text" type="password" name="pass" style="width:100px" /></td>		
+		</tr><tr>
+			<td></td>
+			<td>
+				<input type="submit" class="submit" value="{$LANG._PAGE_LOGGED2}" />
+			</td>		
+		</tr>
+	</table>
+	<input type="hidden" name="referrer" value="{$smarty.server.HTTP_REFERER}" />
+</form>

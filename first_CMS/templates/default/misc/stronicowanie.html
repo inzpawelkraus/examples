@@ -1,0 +1,22 @@
+{if $pages>1}
+<div class="col-lg-12 no-padding text-center pagination">
+    {if $page>1}
+    <a class="link" href="?page={$page-1}"><i class="fa fa-angle-left"></i></a>
+    {else}
+    <span class="inactive"><i class="fa fa-angle-left"></i></span>
+    {/if}
+    {section name=p start=1 loop=$pages+1}
+    {assign var=i value=$smarty.section.p.index}
+    {if $i<$page-4 and $i==1}<a class="link" href="?page={$i}"> {$i} </a>{if $i!=$page-5}...{/if}{/if}
+    {if $i<$page+5 and $i>$page-5}
+    {if $i == $page}<span class="inactive"> {$page} </span>{else}<a class="link" href="?page={$i}"> {$i} </a>{/if}
+    {/if}
+    {if $i>$page+4 and $i==$pages}{if $i!=$page+5}...{/if}<a class="link" href="?page={$i}"> {$i} </a>{/if}
+    {/section} 
+    {if $page<$pages}
+    <a class="link" href="?page={$page+1}"><i class="fa fa-angle-right"></i></a>
+    {else}
+    <span class="inactive"><i class="fa fa-angle-right"></i></span>
+    {/if}
+</div>
+{/if}

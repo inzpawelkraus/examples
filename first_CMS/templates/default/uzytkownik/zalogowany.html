@@ -1,0 +1,6 @@
+<div id="page-title"><h1>{$LANG._PAGE_LOGGED}</h1></div>
+
+<div id="page-content">
+	{$LANG._PAGE_WELCOME} <b>{$user.first_name|default:$user.login}</b>!<br />	
+	{$LANG._PAGE_LOGGED_INFO} <a href="{$smarty.post.referrer}" title="{$LANG._PAGE_BACK}">{$LANG._PAGE_BACK}</a>.
+</div>

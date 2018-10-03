@@ -1,0 +1,17 @@
+{section name=ml loop=$ml}
+	{if $smarty.section.ml.first}<dl id="menu0">{/if}
+		<dt>{if not $submenu[ml]}<a href="{$ml[ml].url}" title="{$ml[ml].name}" {if $ml[ml].target==1}target="_blank"{/if}>{$ml[ml].name}</a>
+			{else}<span>{$ml[ml].name}</span>{/if}</dt>
+
+			{section name=sub loop=$submenu[ml]}
+				<dd style="display: none;"><a href="{$submenu[ml][sub].url}" title="{$submenu[ml][sub].name}" {if $submenu[ml][sub].target==1}target="_blank"{/if}>{$submenu[ml][sub].name}</a></dd>
+			{/section}
+
+	{if $smarty.section.ml.last}</dl>{/if}
+{/section}
+
+<script type="text/javascript">
+	// <![CDATA[
+		new Menu('menu0');
+	// ]]>
+</script>

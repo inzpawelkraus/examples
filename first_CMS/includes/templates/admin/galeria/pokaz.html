@@ -1,0 +1,59 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Aktualności</a><a class="current">Zarządzanie</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a href="?action=add_gallery" title="Nowa galeria" class="btn"><i class="icon-plus"></i>   Dodaj nową</a>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+                <h5>Galerie serwisu</h5>
+            </div>
+            <div class="widget-content nopadding">
+                {section name=g loop=$galleries}
+                {if $smarty.section.g.first}
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <th align="left">Zdjęcie główne</th>
+                    <th width='80'>Opis</th>
+                    <th width='120'>Akcje</th>
+                    </thead>
+                    <tbody>
+                        {/if}
+                        <tr>
+                            <td width="250"><a href="?action=show_gallery&amp;id={$galleries[g].id}">
+                                    {if $galleries[g].photo.src}<img style="margin: 5px;" src="{$galleries[g].photo.src}" alt="Dodaj zdjęcia" title="Dodaj zdjęcia" />
+                                    {else}<strong>Dodaj zdjęcia</strong>{/if}</a></td>
+                            <td>
+                                <a href="?action=show_gallery&amp;id={$galleries[g].id}"><b>{$galleries[g].title}</b></a><br />
+                                {$galleries[g].content_short}
+                            </td>
+                            <td width='120'>
+                                {if $smarty.section.g.index!=0}
+                                <a href="./galeria.php?id={$galleries[g].id}&action=up_gal" title="Przenieś w górę"><img border="0" src="{$BASE_URL}/templates/admin/img/moveUp.png" alt="Przenieś w górę" /></a>
+                                {else}
+                                {/if}
+                                {if $smarty.section.g.last != 1}
+                                <a href="./galeria.php?id={$galleries[g].id}&action=down_gal" title="Przenieś w dół"><img border="0" src="{$BASE_URL}/templates/admin/img/moveDown.png" alt="Przenieś w dół" /></a>
+                                {else}
+                                {/if}
+                                </a>
+                                <a class="btn btn"  href="?action=edit_gallery&amp;id={$galleries[g].id}" title="Edytuj">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <a class="btn btn"  href="?action=delete_gallery&amp;id={$galleries[g].id}" title="Kasuj">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {if $smarty.section.g.last}
+                    </tbody>	
+                </table>
+                {/if}
+                {sectionelse}
+                <p class="center error">Nie utworzono jeszcze galerii.</p>
+                {/section}
+            </div>
+        </div>
+    </div>
+</div>

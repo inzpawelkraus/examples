@@ -1,0 +1,78 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Strony</a><a class="current">Edycja</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Formularz edycji strony</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" enctype="multipart/form-data" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Tytuł strony :</label>
+                        <div class="controls">
+                            {section name=j1 loop=$JEZYK}
+                            <input class="text title" type="text" name="title[{$JEZYK[j1].id}]" placeholder="{$JEZYK[j1].name}" value="{$opis[j1].title}" />
+                            <input type="hidden" name="old_title_url[{$JEZYK[j1].id}]" value="{$opis[j1].title_url}" /> 
+                            {/section}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label>
+                                <input id="show_title" type="checkbox" name="show_title" value="1" {if $article.show_title}checked="true" {/if} />
+                                       Pokazuj tytuł</label>
+                            <label>
+                                <input id="active" type="checkbox" name="active" value="1" {if $article.active}checked="true" {/if} />
+                                       Pokazuj podstronę w serwisie</label>
+                        </div>
+                    </div>
+                    {section name=j2 loop=$JEZYK}
+                    <div class="control-group">
+                        <label class="control-label">Tagi :</label>
+                        <div class="controls">
+                            <input class="text tagi" type="text" name="tagi[{$JEZYK[j2].id}]" value="{$opis[j2].tagi}" />
+                        </div>
+                    </div>
+                    {/section}
+                    <div class="control-group">
+                        <label class="control-label">Galeria :</label>
+                        <div class="controls">
+                            <select name="gallery_id">
+                                <option value="">- brak -</option>
+                                {section name="g" loop=$galleries}
+                                <option value="{$galleries[g].id}" {if $article.gallery_id==$galleries[g].id} selected="selected"{/if}>{$galleries[g].title}</option>
+                                {/section}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Krótki opis :</label>
+                        <div class="controls">
+                            {section name=j3 loop=$JEZYK}
+                            <textarea class="seo-konf" rows="6" name="content_short[{$JEZYK[j3].id}]" placeholder="{$JEZYK[j3].name}">{$opis[j3].content_short}</textarea>
+                            {/section}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Treść :</label>
+                        <div class="controls">
+                            {section name=j4 loop=$JEZYK}
+                            <span>{$JEZYK[j4].name}</span></br>
+                            <textarea id="edytor_{$JEZYK[j4].id}" name="content[{$JEZYK[j4].id}]">{$opis[j4].content}</textarea>
+                            {/section}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="hidden" name="id" value="{$article.id}" />
+                        <input class="btn btn-success" type="submit" name="action" value="Zapisz" />
+                        <input class="btn btn-info" type="submit" name="action" value="Zapisz i kontynuuj edycję" />
+                        <input class="btn btn-danger" type="submit" name="action" value="Porzuć zmiany" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

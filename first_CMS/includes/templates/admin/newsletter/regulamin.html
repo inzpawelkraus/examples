@@ -1,0 +1,20 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Newsletter</a> <a class="current">Regulamin</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <form class="formularz" method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">{$JEZYK[jj].name}</label>
+                <div class="controls">
+                    <textarea style="width:100%; max-width: 100%" id="edytor" name="newsletter_rules">{$newsletter_rules}</textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <input class="btn btn-success" type="submit" value="Zapisz zmiany" />
+		<input type="hidden" name="action" value="update_rules" />
+            </div>
+        </form>
+    </div>
+</div>

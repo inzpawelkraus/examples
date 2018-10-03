@@ -1,0 +1,3 @@
+{section name=mt loop=$mt}
+	<a {if $menu_selected==$mt[mt].url}class="selected"{/if} href="{$mt[mt].url}" title="{$mt[mt].name}" {if $mt[mt].target==1}target="_blank"{/if}>{$mt[mt].name}</a>
+{/section}

@@ -1,0 +1,133 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Użytkownicy</a><a class="current">Zarządzanie</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+
+        <div class="info">W polach tekstowych można stosować "maski": % zastępuje dowolny ciąg, _ pojedynczy znak.<br />
+            Na przykład: wpisanie "P%" w pole imię spowoduje wyświetlenie wszystkich użytkowników o imieniu zaczynającym się na 
+            literę P.</div>
+
+        <form method="get" action="{$smarty.server.PHP_SELF}">
+            <b>Filtr:</b> <br />	
+            <table>
+                <tr>
+                    <td>Login:</td>
+                    <td><input class="text medium" type="text" name="login" value="{$smarty.get.login}" size="30" /></td>
+                    <td>Imię:</td>
+                    <td><input class="text medium" type="text" name="first_name" value="{$smarty.get.first_name}" size="30" /></td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td><input class="text medium" type="text" name="email" value="{$smarty.get.email}" size="30" /></td>
+                    <td>Nazwisko:</td>
+                    <td><input class="text medium" type="text" name="last_name" value="{$smarty.get.last_name}" size="30" /></td>
+                </tr>
+            </table>
+
+            <b>Pokaż konta:</b>&nbsp;&nbsp;&nbsp;
+            <select name="active">
+                <option value="%"{if $smarty.get.active=="%"} selected="true"{/if}>- wszystkie -</option>
+                <option value="0"{if $smarty.get.active=="0"} selected="true"{/if}>nieaktywne</option>
+                <option value="1"{if $smarty.get.active=="1"} selected="true"{/if}>aktywne</option>	
+            </select>
+            <select name="admin_login">
+                <option value="%"{if $smarty.get.admin_login=="%"} selected="true"{/if}>- wszystkie -</option>
+                <option value="0"{if $smarty.get.admin_login=="0"} selected="true"{/if}>bez dostępu do panelu admina</option>
+                <option value="1"{if $smarty.get.admin_login=="1"} selected="true"{/if}>z dostępem do panelu admina</option>	
+            </select>
+            <select name="group_id">
+                <option value="%">- wszystkie -</option>
+                {section name=g loop=$groups}
+                <option value="{$groups[g].id}"{if $smarty.get.group_id==$groups[g].id} selected="true"{/if}>{$groups[g].name}</option>
+                {/section}	
+            </select>
+            <br />
+            <b>Sortowanie:</b>&nbsp;&nbsp;&nbsp;
+            Ilość użytkowników na stronę: 
+            <input class="text small" type="text" name="limit" value="{$smarty.get.limit}" size="3" />
+            Sortuj według: 
+            <select name="order_field">
+                <option value="">- wybierz -</option>
+                <option value="id"{if $smarty.get.order_field=="id"} selected="true"{/if}>id użytkownika</option>
+                <option value="login"{if $smarty.get.order_field=="login"} selected="true"{/if}>loginu</option>		
+                <option value="first_name"{if $smarty.get.order_field=="first_name"} selected="true"{/if}>imię</option>
+                <option value="last_name"{if $smarty.get.order_field=="last_name"} selected="true"{/if}>nazwiska</option>
+                <option value="firm_name"{if $smarty.get.order_field=="firm_name"} selected="true"{/if}>nazwy firmy</option>
+                <option value="email"{if $smarty.get.order_field=="email"} selected="true"{/if}>adresu e-mail</option>
+            </select>
+            <select name="order_type">
+                <option value="">- wybierz -</option>
+                <option value="ASC"{if $smarty.get.order_type=="ASC"} selected="true"{/if}>rosnąco</option>
+                <option value="DESC"{if $smarty.get.order_type=="DESC"} selected="true"{/if}>malejąco</option>	
+            </select><br />
+            <input class="btn btn-success" type="submit" value="Zastosuj" />
+            <a class="btn btn-danger" href="?">Pokaż wszystkie konta</a>
+        </form>
+        <br />
+        <hr />
+
+        <p class="center"><a href="?action=add_user"><img src="{$TPL_URL}/img/add_user.png" alt="Użytkownik" /> <strong>Dodaj nowego użytkownika</strong></a></p>
+
+
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+                <h5>Uzytkownicy serwisu</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <th align="left">Login</th>
+                    <th align="left">&nbsp;</th>
+                    <th align="left">Firma</th>
+                    <th align="left">E-mail</th>
+                    <th width='80'>Dostęp do panelu</th>
+                    <th width='100'>Grupa</th>
+                    <th width='80'>Użytkownik aktywny</th>
+                    <th width='120'>Akcje</th>
+                    </thead>
+                    <tbody>
+                        {section name=u1 loop=$users}
+                        <tr>
+                            <!-- nazwa -->
+                            <td><a href="?action=edit_user&amp;id={$users[u1].id}"><b>{$users[u1].login}</b></a></td>
+                            <td>
+                                <b>Nazwisko:</b> {$users[u1].last_name}<br />
+                                <b>Imię:</b> {$users[u1].first_name}
+                            </td>
+                            <!-- firma -->
+                            <td>{$users[u1].firm_name}</td>	
+                            <!-- email -->
+                            <td>{$users[u1].email}</td>	
+                            <!-- typ konta -->
+                            <td class="center">
+                                {if $users[u1].admin_login==1}<span class="user-active">Tak</span>
+                                {else}<span class="user-inactive">Nie</span>{/if}
+                            </td>
+                            <!-- grupa -->
+                            <td class="center">{$users[u1].group_name}</td>
+                            <!-- status -->
+                            <td class="center">
+                                {if $users[u1].active==1}<span class="active">Tak</span>
+                                {else}<span class="important">Nie</span>{/if}		
+                            </td>
+                            <!-- opcje -->
+                            <td align="center">
+                                <a class="btn btn"  href="?action=edit_user&amp;id={$users[u1].id}" title="Edytuj">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <a class="btn btn"  href="?action=delete_user&amp;id={$users[u1].id}" title="Kasuj">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>		
+                        </tr>
+                        {sectionelse}
+                    <p class="center error">Brak użytkowników o podanych kryteriach w bazie.</p>
+                    {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

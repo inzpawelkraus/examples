@@ -1,0 +1,18 @@
+	<div id="page-title"><h1>{$LANG._PAGE_UNSUBSCRIBE}</h1></div>
+
+			<div id="page-content">
+				<form class="formularz" method="post" action="{$smarty.server.PHP_SELF}">
+                    <table align="center">
+                    <tr>
+                        <td>{$LANG._NEWSLETTER_DEL_EMAIL2}</td>
+                        <td><input class="text" type="text" name="email" value="{$smarty.post.email1}" /></td>
+                    </tr><tr>
+                        <td></td>
+                        <td>
+                           <input type="hidden" name="action" value="remove_email" />
+                           <input class="submit" type="submit" value="{$LANG._NEWSLETTER_DELETE}" />
+                        </td>
+                    </tr>                        
+                    </table>                   
+				</form>
+			</div> 

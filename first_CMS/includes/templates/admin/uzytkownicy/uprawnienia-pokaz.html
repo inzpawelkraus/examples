@@ -1,0 +1,77 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a> <a>Użytkownicy</a><a class="current">Uprawnienia</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                <h5>Uprawnienia grup uzytkowników</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Uprawnienie</th>
+                            <th width="100">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {section name=pri loop=$privileges}
+                        <tr class="odd gradeX">
+                            <td>
+                                <b>{$privileges[pri].name}</b><br />
+                                {$privileges[pri].description}
+                                <div id="id{$smarty.section.pri.index}" style="display: none;">
+                                    <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">Nazwa :</label>
+                                            <div class="controls">
+                                                <input type="text" name="name" readonly="" value="{$privileges[pri].name}" size="50" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Opis :</label>
+                                            <div class="controls">
+                                                <input type="text" name="description" value="{$privileges[pri].description}" size="50" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <input type="hidden" name="id" value="{$privileges[pri].id}" />
+                                            <input class="btn btn-success" type="submit" value="Zapisz" />
+                                            <input type="hidden" name="action" value="edit_privilege" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                            <td width="100">
+                                <a class="btn btn" href="#" onclick="toggle('id{$smarty.section.pri.index}'); return false;" title="Edytuj">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <a class="btn btn" href="?action=delete_privilege&amp;privilege_id={$privileges[pri].id}" title="Kasuj">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {sectionelse}
+                        <tr class="odd gradeX">
+                            <td colspan="2">
+                                Brak zdefiniowanych uprawnień !
+                            </td>
+                        </tr>
+                        {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {literal}
+        <script>
+        function toggle(e)
+        {
+        $("#" + e).slideToggle();
+        }
+        </script>
+        {/literal}
+    </div>
+</div>

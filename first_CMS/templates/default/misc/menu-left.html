@@ -1,0 +1,4 @@
+{section name=ml loop=$ml}
+	<a {if $menu_selected==$ml[ml].url}class="selected"{/if} href="{$ml[ml].url}" title="{$ml[ml].name}" {if $ml[ml].target==1}target="_blank"{/if}>{$ml[ml].name}</a>
+	{if not $smarty.section.ml.last}{/if}
+{/section}

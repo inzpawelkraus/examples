@@ -1,0 +1,55 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Newsletter</a><a class="current">Szablony</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="alert alert-info">
+            Kliknij na szablon do edycji lub dodaj nowy z fomrularza.
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                <h5>Zdefiniowane szablony</h5>
+            </div>
+            <div class="widget-content">
+                <div class="row-fluid">
+                    <div class="span12 btn-icon-pg">
+                        <ul>
+                            {section name=m loop=$mail_tpl}
+                            <a href="?action=edit&amp;id={$mail_tpl[m].id}"><li><i class="icon-eye-open"></i>  {$mail_tpl[m].name} - {$mail_tpl[m].description|nl2br|truncate:60}</li></a>
+                            {sectionelse}
+                            <div class="alert alert-warning">
+                                Brak szablonów w bazie!
+                            </div>
+                            {/section}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Dodaj nowy szablon</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Nazwa :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="name" size="20" value="" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Opis :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="description" size="30" value="" />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn btn-success" type="submit" name="action" value="Dodaj szablon" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

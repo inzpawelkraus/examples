@@ -1,0 +1,36 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Newsletter</a><a class="current">Wysyłka</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <p><a class="btn" href="javascript: history.back(-1);"><i class="icon-step-backward"></i> Powrót</a></p>
+        <div class="alert alert-info">{if $smarty.post.send==one}Biuletyn wysyłany na adres: <b>{$smarty.post.email}</b>
+            {else}Biuletyn wysyłany na <b>{$stats.active|default:"0"}</b> aktywnych adresów e-mail.{/if}
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-list"></i> </span>
+                <h5>Tytuł biuletynu: {$smarty.post.mailing_subject}</h5>
+            </div>
+            <div class="widget-content">
+                <form method="post" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Treść: </label>
+                        <div class="controls">
+                            <textarea id="edytor" name="mailing_content">{$template}</textarea>
+                            <input type="hidden" name="mailing_subject" value="{$smarty.post.mailing_subject}" />
+                            <input type="hidden" name="send" value="{$smarty.post.send}" />
+                            <input type="hidden" name="email" value="{$smarty.post.email}" />
+                            <input type="hidden" name="action" value="send_mailing" />	
+                            <input type="hidden" name="id" value="{$smarty.post.id}" />
+                            <input type="hidden" name="date_add" value="{$smarty.post.date_add}" />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn btn-success" type="submit" value="Wyślij biuletyn" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

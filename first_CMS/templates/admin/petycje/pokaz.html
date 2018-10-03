@@ -1,0 +1,86 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Petycje</a><a class="current">Zarządzanie</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="alert alert-info">
+        Pomarańczowym kolorem oznaczone są propozycje petycji dodane przez internautów</br>
+        Zielonym kolorem oznaczone są petycje w realizacji
+        </div>
+        <a href="?action=add" title="Nowa aktualność" class="btn"><i class="icon-plus"></i>   Dodaj nową</a>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+                <h5>Petycje serwisu</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <th align="left">Treść</th>
+                        <th width='100'>Data utworzenia</th>
+                        <th width='80'>Aktywna</th>
+                        <th width='80'>Głosowanie</th>
+                        <th width='80'>Galeria</th>
+                        <th width='120'>Akcje</th>
+                        </thead>
+                    <tbody>
+                        {section name=a1 loop=$articles}
+                        <tr {if $articles[a1].front==1} class="front"{/if}{if $articles[a1].done==1} class="done"{/if}>
+                            <td align="left">
+                                <a href="?action=edit&amp;id={$articles[a1].id}">
+                                    {if $articles[a1].auth==1}
+                                    <i class="icon-lock" title="Dostępna dla zalogowanych"></i>
+                                    {/if}
+                                    <b>{$articles[a1].title}</b></a><br />
+                                {$articles[a1].content_short|truncate:350:"...":true}
+                            </td>
+                            <td width='100'>{$articles[a1].date_add}</td>
+                            <td width='80'>{if $articles[a1].active==1}<i class="icon-eye-open">{else}
+                                <i class="icon-eye-close">{/if}</td>
+                            <td width='80'>{if $articles[a1].comments==1}<i class="icon-check">{else}
+                                <i class="icon-check-empty">{/if}</td>
+                            <td width='80'>{if $articles[a1].gallery_id>0}<i class="icon-film"></i>{else}
+                                <i class="icon-remove">{/if}</td>
+                            <td width='120'>
+                                <a class="btn btn"  href="{$articles[a1].title_url}" title="Podgląd">
+                                  <i class="icon-search"></i>
+                                </a>
+                                <a class="btn btn"  href="?action=edit&amp;id={$articles[a1].id}" title="Edytuj">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <a class="btn btn"  href="?action=delete&amp;id={$articles[a1].id}" title="Kasuj">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {sectionelse}
+                        <tr><td colspan="5">Brak aktualności w bazie. Aby stworzyć nową artykuł użyj opcji powyżej.</td></tr>
+                        {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {if $pages>1}
+        <div class="center">
+            {if $page>1}
+            <a class="link" href="?page={$page-1}">&laquo; Poprzednia</a>
+            {else}
+            <span class="inactive">&laquo; Poprzednia</span>
+            {/if}
+            | {section name=p start=1 loop=$pages+1}
+            {assign var=i value=$smarty.section.p.index}
+            {if $i<$page-4 and $i==1}<a class="link" href="?page={$i}"> {$i} </a>{if $i!=$page-5}...{/if}{/if}
+            {if $i<$page+5 and $i>$page-5}
+            {if $i == $page}<span class="inactive"> {$page} </span>{else}<a class="link" href="?page={$i}"> {$i} </a>{/if}
+            {/if}
+            {if $i>$page+4 and $i==$pages}{if $i!=$page+5}...{/if}<a class="link" href="?page={$i}"> {$i} </a>{/if}
+            {/section} | 
+            {if $page<$pages}
+            <a class="link" href="?page={$page+1}">Następna &raquo;</a>
+            {else}
+            <span class="inactive">Następna &raquo;</span>
+            {/if}
+        </div>
+        {/if}
+    </div>
+</div>

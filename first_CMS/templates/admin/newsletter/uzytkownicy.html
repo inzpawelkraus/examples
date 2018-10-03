@@ -1,0 +1,95 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Newsletter</a><a class="current">Użytkownicy</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Filtry</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="get" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Imię :</label>
+                        <div class="controls">
+                            <input class="text medium" type="text" name="first_name" value="{$smarty.get.first_name}" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nazwisko :</label>
+                        <div class="controls">
+                            <input class="text medium" type="text" name="last_name" value="{$smarty.get.last_name}" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Email :</label>
+                        <div class="controls">
+                            <input class="text medium" type="text" name="email" value="{$smarty.get.email}" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Aktywność :</label>
+                        <div class="controls">
+                            <select name="active">
+                                <option value="%"{if $smarty.get.active=="%"} selected="true"{/if}>- wszystkie -</option>
+                                <option value="0"{if $smarty.get.active=="0"} selected="true"{/if}>Nie</option>
+                                <option value="1"{if $smarty.get.active=="1"} selected="true"{/if}>Tak</option>	
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Sortowanie :</label>
+                        <div class="controls">
+                            <select name="order_field">
+                                <option value="">- wybierz -</option>
+                                <option value="first_name"{if $smarty.get.order_field=="first_name"} selected="true"{/if}>Imię</option>
+                                <option value="last_name"{if $smarty.get.order_field=="last_name"} selected="true"{/if}>Nazwisko</option>
+                                <option value="email"{if $smarty.get.order_field=="email"} selected="true"{/if}>adresu e-mail</option>
+                            </select>
+                            <select name="order_type">
+                                <option value="">- wybierz -</option>
+                                <option value="ASC"{if $smarty.get.order_type=="ASC"} selected="true"{/if}>Rosnąco</option>
+                                <option value="DESC"{if $smarty.get.order_type=="DESC"} selected="true"{/if}>Malejąco</option>	
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <input type="hidden" name="action" value="user" />
+                            <input class="btn btn-success" type="submit" value="Zastosuj" />
+                        </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+            <th>Aktywność</th>
+            <th width='120'>Akcje</th>
+            </thead>
+            <tbody>
+                {section name=u1 loop=$users}
+                <tr>
+                    <td>
+                        {$users[u1].first_name}
+                    </td><td>
+                        {$users[u1].last_name}
+                    </td>
+                    <td>{$users[u1].email}</td>	
+                    <td class="center">
+                        {if $users[u1].active==1}<i class="icon-check"></i>
+                        {else}<i class="icon-check-empty"></i>{/if}		
+                    </td>
+                    <td align="center">
+                        <a class="btn btn"   href="?action=edit_user&amp;id={$users[u1].id}&mm={$smarty.get.mm}" title="Edytuj"><i class="icon-edit"></i></a>
+                        <a class="btn btn"   href="?action=delete_user&amp;id={$users[u1].id}&mm={$smarty.get.mm}" title="Kasuj"><i class="icon-trash"></i></a>
+                    </td>		
+                </tr>
+                {/section}
+            </tbody>
+        </table>
+    </div>
+</div>

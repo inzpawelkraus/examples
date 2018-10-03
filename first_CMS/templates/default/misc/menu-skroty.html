@@ -1,0 +1,6 @@
+{section name=skroty loop=$skroty}
+	{if $smarty.section.skroty.first}<ul><li><strong>Zobacz również:</strong></li>{/if}
+		<li>
+		<a href="{$skroty[skroty].url}" title="{$skroty[skroty].name}" {if $skroty[skroty].target==1}target="_blank"{/if}>{$skroty[skroty].name}</a>{if not $smarty.section.skroty.last},{/if}</li>
+	{if $smarty.section.skroty.last}</ul>{/if}
+{/section}

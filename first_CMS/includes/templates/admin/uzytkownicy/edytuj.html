@@ -1,0 +1,122 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Uzytkownicy</a><a class="current">Edycja</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a class="btn" href="?"><i class="icon-step-backward"></i> Powrót do spisu użytkowników</a></p>
+
+
+
+
+
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Formularz edycji użytkowanika</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group span6">
+                        <label class="control-label">Login :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="login" readonly="" value="{$u.login}" size="40" />
+                        </div>
+                        <label class="control-label">E-mail :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="email1" value="{$u.email}" size="40" />
+                        </div>
+                    </div>
+                    <div class="control-group span6">
+                    </div>
+                </form>  
+            </div>
+        </div>
+        <form method="post" action="{$smarty.server.PHP_SELF}">
+            <table class="special">
+                <tr>
+                    <td width="40%"><b>Login:</b><br /><small>Nazwa konta / użytkownika</small></td>
+                    <td><b>{$u.login}</b></td>			
+                </tr><tr>
+                    <td><b>E-mail:</b></td>
+                    <td><input class="text" type="text" name="email" value="{$u.email}" size="40" /></td>			
+                </tr>
+                {if !$u.admin}
+                <tr>
+                    <td><b>Zmień hasło:</b></td>
+                    <td><input class="text" type="password" name="haslo" value=""  /></td>
+                </tr>
+                {/if}
+
+                <tr>
+                    <td><b>Status konta:</b></td>
+                    <td>
+                        <select name="active">
+                            <option value="0"{if $u.active==0} selected="true"{/if}>nieaktywne</option>
+                            <option value="1"{if $u.active==1} selected="true"{/if}>aktywne</option>
+                        </select>				
+                    </td>
+                </tr><tr>
+                    <td><b>Logowanie do panelu administratora:</b></td>
+                    <td>
+                        <select name="admin_login">
+                            <option value="0"{if $u.admin_login==0} selected="true"{/if}>NIE</option>
+                            <option value="1"{if $u.admin_login==1} selected="true"{/if}>TAK</option>
+                        </select>				
+                    </td>
+                </tr><tr>
+                    <td><b>Grupa:</b></td>
+                    <td>
+                        <select name="group_id">
+                            <option value="">nie wybrano grupy</option> 
+                            {section name=g loop=$groups}
+                            <option value="{$groups[g].id}"{if $groups[g].id==$u.group_id} selected="true"{/if}>{$groups[g].name}</option> 
+                            {/section}					
+                        </select>				
+                    </td>
+                </tr><tr>
+                    <td><b>Typ konta</b><br /><small>Proszę zaznaczyć właściwe</small></td>
+                    <td>
+                        <input id="b0" type="radio" name="business" value="0"{if $u.business==0} checked="true"{/if} />
+                               <label for="b0">osoba fizyczna</label><br />
+                        <input id="b1" type="radio" name="business" value="1"{if $u.business==1} checked="true"{/if}  />
+                               <label for="b1">firma</label><br />				
+                    </td>			
+                </tr><tr>
+                    <td><b>Nazwa firmy:</b></td>
+                    <td><input class="text" type="text" name="firm_name" value="{$u.firm_name}" size="40" /></td>			
+                </tr><tr>
+                    <td><b>Numer NIP:</b></td>
+                    <td><input class="text" type="text" name="nip" value="{$u.nip}" size="40" /></td>			
+                </tr><tr>
+                    <td><b>Imię:</b></td>
+                    <td><input class="text" type="text" name="first_name" value="{$u.first_name}" size="40" /></td>
+                </tr><tr>
+                    <td><b>Nazwisko:</b></td>
+                    <td><input class="text" type="text" name="last_name" value="{$u.last_name}" size="40" /></td>			
+                </tr><tr>
+                    <td><b>Ulica:</b></td>
+                    <td><input class="text" type="text" name="street" value="{$u.street}" size="40" /></td>		
+                </tr><tr>
+                    <td><b>Nr budynku/lokalu:</b></td>
+                    <td><input class="text" type="text" name="nr_bud" value="{$u.nr_bud}" size="15" /> <input class="text" type="text" name="nr_lok" value="{$u.nr_lok}" size="15" /></td>		
+                </tr><tr>
+                    <td><b>Kod pocztowy:</b><br /><small>Poprawny kod pocztowy: xx-xxx</small></td>
+                    <td><input class="text" type="text" name="post_code" value="{$u.post_code}" size="6" maxlength="6" /></td>			
+                </tr><tr>
+                    <td><b>Miejscowość:</b></td>
+                    <td><input class="text" type="text" name="city" value="{$u.city}" size="40" /></td>			
+                </tr><tr>
+                    <td><b>Telefon:</b></td>
+                    <td><input class="text" type="text" name="phone" value="{$u.phone}" size="40" /></td>
+                </tr><tr>
+                    <td></td>
+                    <td>
+                        <input type="hidden" name="action" value="save_user" />
+                        <input type="hidden" name="id" value="{$u.id}" />
+                        <input class="submit" type="submit" value="Zapisz zmiany" />				
+                    </td>			
+                </tr>
+            </table>
+        </form>  
+    </div>
+</div>

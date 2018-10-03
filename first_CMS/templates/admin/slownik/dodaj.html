@@ -1,0 +1,37 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Słownik</a><a class="current">Dodj nowy wyraz</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a class="btn" href="?"><i class="icon-step-backward"></i> Powrót do slownika</a>
+        {if $register_error}
+        <div class="error">{$register_error}</div>
+        {/if}
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Dodaj nową pozycje</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Klucz :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="label" value="{$smarty.post.label}" size="40" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Wartość :</label>
+                        <div class="controls">
+                            <textarea class="pl" name="pl" cols="60" rows="10">{$smarty.post.pl}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="hidden" name="action" value="save_new" />
+                        <input class="btn btn-success" type="submit" value="Dodaj wyraz" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

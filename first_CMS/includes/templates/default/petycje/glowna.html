@@ -1,0 +1,26 @@
+<section class="body page">
+    <div class="container petitions">
+
+        {section name=aa loop=$articlesglowna}
+        <div class="petition col-xs-6">
+            <div class="img_container">
+                {if $articlesglowna[aa].photo.small}
+                <img src="{$articlesglowna[aa].photo.small}"/>
+                {else}
+                <img src="{$TPL_URL}/img/petition1.jpg"/>
+                {/if}
+                
+                <span class="petitionTitle">{$articlesglowna[aa].title}</span>
+                <span class="progress">{$articlesglowna[aa].progress}%</span>
+                <span class="info">Zebraliśmy </br><strong>{$articlesglowna[aa].comm}</strong> </br>podpisów</span>
+            </div>
+            <div class="content">
+                {$articlesglowna[aa].content_short|truncate:340:"...":true}
+                <a href="{$articles[aa].url}" title="Przejdź do petycji: {$articles[aa].title}" class="more">Czytaj wiecej</a>
+            </div>
+        </div>
+        {sectionelse}
+        <p class="center error">{$LANG._PAGE_NO_NEWS}</p>
+        {/section}
+    </div>
+</section>

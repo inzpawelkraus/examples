@@ -1,0 +1,263 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a class="current">Menu</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <form method="post" action="{$smarty.server.PHP_SELF}">
+            <div class="control-group">
+                <label class="control-label">Wybierz menu:</label>
+                <div class="controls">
+                    {section name=mm loop=$mm}
+                    {if $smarty.section.mm.first}
+                    <select class="change-menu" name="group" onchange="this.form.submit()">
+                        {/if}
+                        <option value="{$mm[mm].typ}"{if $group==$mm[mm].typ} selected="true"{/if}>{$mm[mm].nazwa}</option>
+                        {if $smarty.section.mm.last}
+                    </select>
+                    {/if}
+                    {/section}
+                    <input type="hidden" name="action" value="change_menu" />
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-info">
+            Dodaj nowy element z formularza.</br>
+            {php}if(empty($_GET['pid'])){echo 'Aby dodać podmenu wejdż w menu klikająć <i class="icon-indent-right"></i> i dodaj pozycje.';}{/php}
+            {php}if(!empty($_GET['pid'])){echo 'Aby wyjść z folderu kliknij tutja <a href="javascript:void(0);" onClick="history.go(-1); return false;"><i class="icon-fast-backward"> </i>&nbsp;Wyjdź wyżej</a>';}{/php}
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+                <h5>Elementy {if $group=="top"}MENU górne{/if}{if $group=="left"}MENU główne{/if}{if $group=="bottom"}MENU dolne{/if}-go</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th align="left">Nazwa</th>
+                            <th width="170" align="right">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {section name=m1 loop=$menu}
+                        <tr>
+                            <td align="left">
+                                {if $menu[m1].parent_id==0}
+                                <a class="btn btn" href="./menu.php?pid={$menu[m1].id}&group={$group}">
+                                    <i class="icon-indent-right"></i>
+                                </a>
+                                {else}
+                                <img class="folder" src="{$BASE_URL}/templates/admin/img/folder.png" alt="Element" />
+                                {/if}
+                                {$menu[m1].name}
+                                {if $opis[0].id==$menu[m1].id}
+                                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">	
+                                    <input type="hidden" name="action" value="edit" />
+                                    <input type="hidden" name="id" value="{$menu[m1].id}" />
+                                    <input type="hidden" name="pid" value="{$pid}" />
+                                    <input type="hidden" name="group" value="{$group}" />
+                                    <input type="hidden" id="url" name="url" value="{$menu[m1].select}" />
+                                    <div class="control-group">
+                                        <label class="control-label">Nazwa :</label>
+                                        <div class="controls">
+                                            {section name=j1 loop=$opis}
+                                            <input type="text" class="span11" name="name[{$opis[j1].language_id}]" value="{$opis[j1].name}"  placeholder="{$JEZYK[j1].name}"/>
+                                            {/section}
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Nawiguje do :</label>
+                                        <div class="controls">
+                                            <div class="accordion" id="collapse-group">
+                                                <div class="accordion-group widget-box">
+                                                    <div class="accordion-heading">
+                                                        <div class="widget-title"> 
+                                                            <a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse" class='adMenuType'  data-type="url"> 
+                                                                <span class="icon"><i class="icon-magnet"></i></span>
+                                                                <h5>Link</h5>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse accordion-body {if $menu[m1].type=='url'}in{/if}" id="collapseGOne">
+                                                        <div class="widget-content">
+                                                            Podaj zewnętrzny URL, rozpocznij od http://<br />
+                                                            <input type="checkbox" id="target_{$menu[m1].id}" name="target" value=1 {if $menu[m1].target==1}checked="true"{/if} /><label for="target_{$menu[m1].id}">wyświetlaj stronę w nowym oknie <em>_blank</em></label><br />
+
+                                                            {section name=j2 loop=$opis}
+                                                            <img src="{$TPL_URL}/img/{$JEZYK[j2].directory}/{$JEZYK[j2].code}.gif" alt="{$JEZYK[j2].name}" title="{$JEZYK[j2].name}" />
+                                                            <input class="text" type="text" name="url_addr[{$opis[j2].language_id}]" size="40" value="{if $menu[m1].type=='url'}{$opis[j2].url}{else}http://{/if}" /><br />
+                                                            {/section}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-group widget-box">
+                                                    <div class="accordion-heading">
+                                                        <div class="widget-title">
+                                                            <a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse" class='adMenuType'  data-type="page"> 
+                                                                <span class="icon"><i class="icon-magnet"></i></span>
+                                                                <h5>Stronę</h5>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse accordion-body {if $menu[m1].type=='page'}in{/if}" id="collapseGTwo">
+                                                        <div class="widget-content">
+                                                            Wybierz stronę na którą ma odsyłać element<br />
+                                                            {section name=j5 loop=$JEZYK}
+                                                            <select name="url_page_{$smarty.section.j5.iteration}">
+                                                                {$options_pages[j5]}
+                                                            </select>
+                                                            {/section}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-group widget-box">
+                                                    <div class="accordion-heading">
+                                                        <div class="widget-title">
+                                                            <a data-parent="#collapse-group" href="#collapseGThree" data-toggle="collapse" class='adMenuType'  data-type="module"> 
+                                                                <span class="icon"><i class="icon-magnet"></i></span>
+                                                                <h5>Moduł</h5>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse accordion-body {if $menu[m1].type=='module'}in{/if}" id="collapseGThree">
+                                                        <div class="widget-content">
+                                                            Wybierz moduł na serwerze do którego ma odsyłać element<br />
+                                                            <select name="url_module">
+                                                                {$options_modules}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input id="type" type="hidden" name="type" value=""/>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success">Aktualizuj</button>
+                                    </div>
+                                </form>
+                                {/if}
+                            </td>
+                            <td width="170" align="right">
+                                {if not $smarty.section.m1.first}
+                                <a class="btn btn" href="./menu.php?pid={$pid}&id={$menu[m1].id}&group={$group}&action=up" title="Przenieś w górę">
+                                    <i class="icon-chevron-up"></i>
+                                </a>
+                                {/if}
+                                {if not $smarty.section.m1.last}
+                                <a class="btn btn" href="./menu.php?pid={$pid}&id={$menu[m1].id}&group={$group}&action=down" title="Przenieś w dół">
+                                    <i class="icon-chevron-down"></i>
+                                </a>
+                                {/if}
+                                <a class="btn btn"  href="./menu.php?pid={$pid}&amp;id={$menu[m1].id}&amp;group={$group}&amp;action=show_edit" title="Edytuj">
+                                    <i class="icon-edit"></i>
+                                </a>		
+                                <a class="btn btn"  href="./menu.php?pid={$pid}&amp;id={$menu[m1].id}&amp;group={$group}&action=delete" title="Kasuj" onclick="return confirmDelete()">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {sectionelse}
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                Menu jest puste. Aby dodać tutaj nowy element wypełnij formularz poniżej.</br>
+                            </td>
+                        </tr>
+                        {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+                <h5>Nowa pozycja</h5>
+            </div>
+            <div class="widget-content nopadding">  
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">	
+                    <div class="control-group">
+                        <label class="control-label">Nazwa :</label>
+                        <div class="controls">
+                            {section name=j4 loop=$JEZYK}
+                            <input type="text" class="span5" name="name[{$JEZYK[j4].id}]" placeholder="{$JEZYK[j4].name}"/>
+                            {/section}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nawiguje do :</label>
+                        <div class="controls">
+                            <div class="accordion" id="collapse-group">
+                                <div class="accordion-group widget-box">
+                                    <div class="accordion-heading">
+                                        <div class="widget-title"> 
+                                            <a data-parent="#collapse-group" href="#collapseNGOne" data-toggle="collapse" class='adMenuType'  data-type="url"> 
+                                                <span class="icon"><i class="icon-magnet"></i></span>
+                                                <h5>Link</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="collapse accordion-body" id="collapseNGOne">
+                                        <div class="widget-content">
+                                            Podaj zewnętrzny URL, rozpocznij od http://<br />
+                                            <input type="checkbox" id="target_{$menu[m1].id}" name="target" value=1 {if $menu[m1].target==1}checked="true"{/if} /><label for="target_{$menu[m1].id}">wyświetlaj stronę w nowym oknie <em>_blank</em></label><br />
+
+                                            {section name=j3 loop=$JEZYK}
+                                            <input class="text" type="text" name="url_addr[{$JEZYK[j3].id}]" size="40" value="http://{$JEZYK[j3].name} adres" />
+                                            {/section}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-group widget-box">
+                                    <div class="accordion-heading">
+                                        <div class="widget-title">
+                                            <a data-parent="#collapse-group" href="#collapseNGTwo" data-toggle="collapse" class='adMenuType'  data-type="page"> 
+                                                <span class="icon"><i class="icon-magnet"></i></span>
+                                                <h5>Stronę</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="collapse accordion-body" id="collapseNGTwo">
+                                        <div class="widget-content">
+                                            Wybierz stronę na którą ma odsyłać element<br />
+                                            {section name=j5 loop=$JEZYK}
+                                            <select name="url_page_{$smarty.section.j5.iteration}">
+                                                {$options_pages[j5]}
+                                            </select>
+                                            {/section}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-group widget-box">
+                                    <div class="accordion-heading">
+                                        <div class="widget-title">
+                                            <a data-parent="#collapse-group" href="#collapseNGThree" data-toggle="collapse" class='adMenuType'  data-type="module"> 
+                                                <span class="icon"><i class="icon-magnet"></i></span>
+                                                <h5>Moduł</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="collapse accordion-body" id="collapseNGThree">
+                                        <div class="widget-content">
+                                            Wybierz moduł na serwerze do którego ma odsyłać element<br />
+                                            <select name="url_module">
+                                                {$options_modules}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-actions">
+                            <input id="type" type="hidden" name="type" value=""/>
+                            <input type="hidden" name="group" value="{$group}" />
+                            <input type="hidden" name="pid" value="{$pid}" />
+                            <input type="hidden" name="action" value="add" />
+                            <input class="btn btn-success" type="submit" value="Dodaj" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

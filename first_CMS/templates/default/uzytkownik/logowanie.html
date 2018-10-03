@@ -1,0 +1,21 @@
+<div id="page-title"><h1>{$LANG._PAGE_LOGIN_USER}</h1></div>
+
+<div id="page-content">
+	{if $user_error}<p class="error center">{$user_error}</p>{/if}
+	<table align="center">
+	<tr>
+		<td width="400">
+			<b>{$LANG._PAGE_NEW_USER}</b><br />
+			{$LANG._PAGE_REGISTER_INFO}<br /><br />
+			<div class="center">
+				<b><a href="{$BASE_URL}/rejestracja.html" title="{$LANG._PAGE_REGISTER}">{$LANG._PAGE_REGISTER}</a></b>
+			</div>		
+		</td>
+		<td width="100">
+			<b>{$LANG._PAGE_I_REGISTER}</b><br />
+			{include file="uzytkownik/login-form.html"}<br />
+			<div class="center"><b><a href="{$BASE_URL}/konto/przypomnienie-hasla.html" title="{$LANG._PAGE_NEW_REMINDER}">{$LANG._PAGE_NEW_REMINDER}</a></b></div>	
+		</td>
+	</tr>
+	</table>
+</div>

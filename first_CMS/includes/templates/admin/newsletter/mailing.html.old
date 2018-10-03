@@ -1,0 +1,78 @@
+<div class="page-title"><h1>{$pageTitle}{if $template.name} | <span class="important">Szablon: {$template.name}{/if}</span></h1></div>
+
+<div class="page-content">
+	<div class="info">Aby wysłać biuletyn do wszystkich użytkowników proszę wypełnić poniższy formularz. Przycisk "Wyślij biuletyn" należy kliknąć tylko raz, w przeciwnym wypadku użytkownicy mogą dostać kilka kopii tego samego listu.<br />
+	W treści biuletynu można zastosować zmienne. Tekst <b>#IMIE#</b> zostanie zastąpiony imieniem podanym podczas rejestracji, natomiast <b>#NAZWISKO#</b> zostanie zamienione na nazwisko.<br />
+	Aktualnie w bazie jest <b>{$stats.all}</b> adresów, z czego <b>{$stats.active|default:"0"}</b> aktywnych.</div>
+
+	<form method="post" action="{$smarty.server.PHP_SELF}">
+		<p>
+			Wybierz szablon:
+			{section name=m loop=$mail_tpl}
+				{if $smarty.section.m.first}<select name="template">
+					<option value=""{if $smarty.post.template==''} selected="true"{/if}>pusty</option>
+				{/if}
+					<option value="{$mail_tpl[m].id}"{if $smarty.post.template=='{$mail_tpl[m].id}'} selected="true"{/if}>{$mail_tpl[m].name}</option>
+				{if $smarty.section.m.last}</select>
+					<input class="submit" type="submit" value="Wczytaj.." />
+					<input type="hidden" name="action" value="load_template" />
+				{/if}
+			{/section}
+		</p>
+	</form>
+
+	<p class="info"><b>Porada:</b> Edytując biuletyn warto używać pracować w trybie "full screen": 
+	<a target="_self" onmousedown="return false;" onclick="tinyMCE.execInstanceCommand('mce_editor_0','mceFullScreen');return false;" href="javascript:tinyMCE.execInstanceCommand('mce_editor_0','mceFullScreen');" id="mce_editor_0_fullscreen"><img title="Toggle fullscreen mode" alt="Toggle fullscreen mode" src="http://cms/goniec-index/js/tinymce/jscripts/tiny_mce/plugins/fullscreen/images/fullscreen.gif" style="vertical-align: middle;" /></a></a></p>
+
+	<form method="post">
+		<p>
+		<b>Wyślij biuletyn do:</b><br />
+		<input type="radio" name="send" value="all" id="send_all"{if $smarty.post.send=='all' or empty($smarty.post.send)} checked="true"{/if} /><label for="send_all">wszystkich zapisanych</label><br />
+		<input type="radio" name="send" value="one" id="send_one"{if $smarty.post.send=='one'} checked="true"{/if} /><label for="send_one">na podany adres</label>
+		<div class="hidden" id="send_one_email">
+			podaj adres, na jaki wysłać biuletyn: <input class="text" type="text" name="email" size="20" />	
+		</div>
+		</p>
+
+			<b>Tytuł biuletynu:</b><br />
+			<input class="text" type="text" name="mailing_subject" size="70" value="{$template.name}" /><br />
+			<b>Treść:</b><br />
+		<textarea id="edytor" name="mailing_content">{$template.value}</textarea><br />
+		
+		<input type="hidden" name="action" value="send" />	
+		<input type="hidden" name="id" value="{$template.id}" />
+		<input type="hidden" name="date_add" value="{$template.date_add}" />
+		<input class="submit" type="submit" value="Wyślij biuletyn" />
+	</form>
+</div>
+
+	<script type="text/javascript" src="{$BASE_URL}/js/jquery.pack.js"></script>
+	<script type="text/javascript" src="{$BASE_URL}/js/tinymce/tiny_mce.js"></script>
+	<script type="text/javascript" src="{$BASE_URL}/js/tinymce.init.js"></script>
+	<script type="text/javascript">
+		// <![CDATA[
+			_editor_url  = "{$BASE_URL}/js/tinymce/";
+			var BASE_URL = "{$BASE_URL}";
+			var SERVER_URL = "{$CONF.server_addr}";
+		// ]]>
+	</script>
+	
+{literal}
+<script type="text/javascript">
+// <![CDATA[
+	jQuery(document).ready(function(){
+		if(jQuery('#send_one').get(0).checked==true){
+			jQuery('#send_one_email').show();
+		}
+		jQuery('#send_all, #send_one').click(function(){
+			if(this.id == 'send_all'){
+				jQuery('#send_one_email').hide('slow');
+			}
+			if(this.id == 'send_one'){
+				jQuery('#send_one_email').show('slow');
+			}
+		});
+	});
+// ]]>
+</script>
+{/literal}

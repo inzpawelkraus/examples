@@ -1,0 +1,51 @@
+<div class="page-title"><h1>{$pageTitle}</h1></div>
+
+<div class="page-content">
+	{section name=w loop=$wyniki}
+		{if $smarty.section.w.first}
+		<table cellspacing="1" class="special">
+		<thead>
+			<tr>
+				<td width="1%" align="center">Lp.</td>
+				<td>Wpisywana fraza</td>
+				<td>Znalezionych wyników</td>
+				<td>Ilość wyświetleń</td>
+			</tr>
+		</thead>
+		<tbody>
+		{/if}
+		<tr class="{cycle values="shadow_dark,shadow_light"}">
+			<td align="center">{$smarty.section.w.iteration+$interval}.</td>
+			<td><a href="{$wyniki[w].title_url}" target="_blank"><b>{$wyniki[w].keyword}</b></a></td>
+			<td class="center important"><strong>{$wyniki[w].ilosc}</strong></td>
+			<td class="center important"><strong>{$wyniki[w].count}</strong></td>
+		</tr>
+		{if $smarty.section.w.last}
+		</tbody>
+		</table>
+		{/if}
+	{sectionelse}
+		<p class="center error">Brak wpisów w bazie.</p>
+	{/section}
+
+
+	{if $pages>1}
+	<div class="center">
+		{if $page>1}
+			<a class="link" href="?page={$page-1}&amp;type={$smarty.get.type}">&laquo; Poprzednia</a>
+		{else}
+			<span class="inactive">&laquo; Poprzednia</span>
+		{/if}
+		| {section name=p start=1 loop=$pages+1}
+					{assign var=i value=$smarty.section.p.index}
+						{if $i == $page}<span class="inactive"> {$page} </span>{else}
+						<a class="link" href="?page={$i}&amp;type={$smarty.get.type}"> {$i} </a>{/if}
+				{/section} | 
+		{if $page<$pages}
+			<a class="link" href="?page={$page+1}&amp;type={$smarty.get.type}">Następna &raquo;</a>
+		{else}
+			<span class="inactive">Następna &raquo;</span>
+		{/if}
+		</div>
+	{/if}
+</div>

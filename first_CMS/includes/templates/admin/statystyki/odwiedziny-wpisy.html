@@ -1,0 +1,29 @@
+<div class="widget-box">
+    <div class="widget-title"> <span class="icon"> <i class="icon-eye-open"></i> </span>
+        <h5>Najczęściej głosowane  [Top 10]</h5>
+    </div>
+    <div class="widget-content">
+        <div class="error_ex">
+            <table class="table table-bordered data-table">
+                <thead>
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Data utworzenia</th>
+                        <th>Odwiedziny</th>
+                        <th>Głosy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {section name=o loop=$wodwiedz}
+                    <tr>
+                        <td><a href="{$odwiedz[o].title_url}" target="_blank"><b>{$wodwiedz[o].title}</b></a></td>
+                        <td>{$wodwiedz[o].date_add}</td>
+                        <td class="center important"><strong>{$wodwiedz[o].count}</strong></td>	
+                        <td class="center important"><strong>{$wodwiedz[o].votes}</strong></td>	
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

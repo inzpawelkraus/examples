@@ -1,0 +1,119 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Użytkownicy</a><a class="current">Nowy</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a class="btn" href="?"><i class="icon-step-backward"></i> Powrót</a></br></br>
+
+        {if $register_error}
+        <div class="alert alert-danger">
+            {$register_error}
+        </div>
+        {/if}
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Formularz dodawania aktualności</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group span6">
+                        <label class="control-label">Login :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="login" value="{$smarty.post.login}" size="40" />
+                        </div>
+                        <label class="control-label">E-mail :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="email1" value="{$smarty.post.email1}" size="40" />
+                        </div>
+                        <label class="control-label">Powtórz E-mail :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="email2" value="{$smarty.post.email2}" size="40" />
+                        </div>
+                        <label class="control-label">Imię :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="first_name" value="{$smarty.post.first_name}" size="40" />
+                        </div>
+                        <label class="control-label">Nazwisko :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="last_name" value="{$smarty.post.last_name}" size="40" />
+                        </div>
+                        <div class="controls">
+                            <label>
+                                <input id="b0" type="radio" name="business" value="0"{if $smarty.post.business==0} checked="true"{/if} />
+                                       Osoba fizyczna</label>
+                            <label>
+                                <input id="b1" type="radio" name="business" value="1"{if $smarty.post.business==1} checked="true"{/if}  />
+                                       Firma</label>
+                        </div>
+                        <label class="control-label">Ulica :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="street" value="{$smarty.post.street}" size="40" />
+                        </div>
+                        <label class="control-label">Nr budynku/lokalu :</label>
+                        <div class="controls">
+                            <input class="text" style="width: 60px;" type="text" name="nr_bud" value="{$smarty.post.nr_bud}" size="15" /> / <input class="text" style="width: 60px;" type="text" name="nr_lok" value="{$smarty.post.nr_lok}" size="15" />
+                        </div>
+                        <label class="control-label">Kod pocztowy :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="post_code" value="{$smarty.post.post_code}" size="6" maxlength="6" placeholder="XX-XXX"/>
+                        </div>
+                        <div class="controls">
+                            <input type="hidden" name="action" value="add_user" />
+                            <input class="btn btn-success pull-right" type="submit" value="Dodaj użytkownika" /></br></br>
+                        </div>
+                    </div>
+                    <div class="control-group span6">
+                        <label class="control-label">Hasło :</label>
+                        <div class="controls">
+                            <input class="text" type="password" name="pass1" value="" size="40" />
+                        </div>
+                        <label class="control-label">Potwierdż hasło :</label>
+                        <div class="controls">
+                            <input class="text" type="password" name="pass2" value="" size="40" />
+                        </div>
+                        <label class="control-label">Status konta :</label>
+                        <div class="controls">
+                            <select name="active">
+                                <option value="0"{if $smarty.post.active==0} selected="true"{/if}>NIEAKTYWNE</option>
+                                <option value="1"{if $smarty.post.active==1} selected="true"{/if}>AKTYWNE</option>
+                            </select>
+                        </div>
+                        <label class="control-label">Logowanie do panelu :</label>
+                        <div class="controls">
+                            <select name="admin_login">
+                                <option value="0"{if $smarty.post.admin_login==0} selected="true"{/if}>NIE</option>
+                                <option value="1"{if $smarty.post.admin_login==1} selected="true"{/if}>TAK</option>
+                            </select>
+                        </div>
+                        <label class="control-label">Grupa :</label>
+                        <div class="controls">
+                            <select name="group_id">
+                                <option value="">- wybierz -</option> 
+                                {section name=g loop=$groups}
+                                <option value="{$groups[g].id}"{if $groups[g].id==$smarty.post.group_id} selected="true"{/if}>{$groups[g].name}</option> 
+                                {/section}					
+                            </select>
+                        </div>
+                        <label class="control-label">Nazwa firmy:</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="firm_name" value="{$smarty.post.firm_name}" size="40" />
+                        </div>
+                        <label class="control-label">NIP :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="nip" value="{$smarty.post.nip}" size="40" />
+                        </div>
+                        <label class="control-label">Miejscowość :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="city" value="{$smarty.post.city}" size="40" />
+                        </div>
+                        <label class="control-label">Telefon :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="phone" value="{$smarty.post.phone}" size="40" />
+                        </div>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</div>

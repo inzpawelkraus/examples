@@ -1,0 +1,16 @@
+<section class="body page">
+    <div class="container petitions">
+            {if $page.show_title}
+            <div id="page-title"><h1>{$page.title}</h1></div>
+            {/if}
+
+            <div id="page-content">
+                {$page.content}
+            </div>
+
+            {if $gallery}
+            {include file="galeria/pokaz-podstrona.html" gal=$gallery gallery=$galleries}
+            {/if}
+
+    </div>
+</section>

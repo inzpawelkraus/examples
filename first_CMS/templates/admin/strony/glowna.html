@@ -1,0 +1,22 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Strony</a><a class="current">Główna</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <form class="formularz" method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+            {section name=jj loop=$JEZYK}
+            <div class="control-group">
+                <label class="control-label">{$JEZYK[jj].name}</label>
+                <div class="controls">
+                    <textarea style="width:100%; max-width: 100%; min-height: 240px;" id="edytor_{$JEZYK[jj].id}" name="main_page[{$JEZYK[jj].id}]">{$main_page[jj]}</textarea>
+                </div>
+            </div>
+            {/section}	
+            <div class="form-actions">
+                <input type="hidden" name="action" value="save" />
+                <button type="submit" class="btn btn-success">Zapisz</button>
+            </div>
+        </form>
+    </div>
+</div>

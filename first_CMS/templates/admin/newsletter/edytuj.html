@@ -1,0 +1,49 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Newsletter</a><a class="current">Educja użytkownika</a> </div>
+    <h1>{$pageTitle} - {$u.first_name} {$u.last_name}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a class="btn" href="?action=user"><i class="icon-step-backward"></i> Powrót do listy</a>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Edytuj dane</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Imię :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="first_name" value="{$u.first_name}" size="40" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nazwisko :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="last_name" value="{$u.last_name}" size="40" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Email :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="email" value="{$u.email}" size="40" />
+                        </div>
+                    </div>
+					<div class="control-group">
+                        <label class="control-label">Status :</label>
+                        <div class="controls">
+                            <select name="active">
+                                <option value="0"{if $u.active==0} selected="true"{/if}>Nieaktywny</option>
+                                <option value="1"{if $u.active==1} selected="true"{/if}>Aktywny</option>
+                            </select>	
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="hidden" name="action" value="save_user" />
+                        <input type="hidden" name="id" value="{$u.id}" /><br />
+                        <input class="btn btn-success" type="submit" value="Zapisz zmiany" />
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>

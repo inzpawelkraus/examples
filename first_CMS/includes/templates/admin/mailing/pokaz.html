@@ -1,0 +1,31 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Szablony E-mail</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="alert alert-info">
+            Kliknij na szablon do edycji.
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+                <h5>Zdefiniowane szablony</h5>
+            </div>
+            <div class="widget-content">
+                <div class="row-fluid">
+                    <div class="span12 btn-icon-pg">
+                        <ul>
+                            {section name=m loop=$mail_tpl}
+                            <a href="?id={$mail_tpl[m].name}"><li><i class="icon-eye-open"></i>  {$mail_tpl[m].name} - {$mail_tpl[m].description|nl2br|truncate:60}</li></a>
+                            {sectionelse}
+                            <div class="alert alert-warning">
+                                Brak szablonów w bazie!
+                            </div>
+                            {/section}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

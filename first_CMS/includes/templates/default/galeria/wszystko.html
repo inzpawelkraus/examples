@@ -1,0 +1,16 @@
+<div id="page-title"><h1>{$LANG._PAGE_GALLERY}</h1></div>
+
+<div id="page-content">
+    {section name=g loop=$galleries}
+    {if $smarty.section.g.first}<div class="gal">{/if}
+        <div class="gal2">
+            {if $galleries[g].show_title}<h2><a href="{$galleries[g].url}" title="{$galleries[g].title}">{$galleries[g].title}</a></h2>{/if}
+            <a href="{$galleries[g].url}" title="{$galleries[g].title}">
+                <img class="gal-img" src="{$galleries[g].photo.src}" alt="{$galleries[g].title}" /></a><br />
+            <span class="gal-opis">{$galleries[g].content_short}</span>
+        </div>
+        {if $smarty.section.g.last}</div>{/if}
+    {sectionelse}
+    <p class="center error">{$LANG._PAGE_NO_GALLERY}</p>
+    {/section}
+</div>

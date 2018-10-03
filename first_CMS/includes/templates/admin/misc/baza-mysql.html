@@ -1,0 +1,58 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">MySQL</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="alert alert-info">
+            Automatyczny zrzut bazy danych wykonywany jest raz w miesiącu. Aby exportować bazę danych ręcznie do pliku należy użyć funkcji poniżej EXPORT. 
+            Dostępne pliki można również pobrać.
+        </div>
+        <form class="formularz" method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+            <div class="form-actions">
+                <input class="btn btn-info" type="submit" onclick="javascript:loaddiv();" value="Zrób kopie bazy" />	
+            </div>
+            <input type="hidden" name="action" value="export" />
+        </form>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Lista plików zawierających zrzuty bazy danych. Nazwa pliku określa datę utworzenie kopii bazy danych.</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <div class="widget-content">
+                    <div class="row-fluid">
+                        <div class="span12 btn-icon-pg">
+                            <ul>
+                                {section name=f loop=$file}
+                                <a href="?action=pobierz&amp;name={$file[f].name}"><li><i class="icon-download"></i>  {$file[f].name} - [{$file[f].size} kB]</li></a>
+                                {sectionelse}
+                                <div class="alert alert-warning">
+                                    Brak szablonów w bazie!
+                                </div>
+                                {/section}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-info">
+            Import danych z pliku do bazy, należy wybrać odpowiedni plik i użyć funkcji IMPORT.
+        </div>
+        <form class="formularz" method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">Kopie bazy :</label>
+                <div class="controls">
+                    <select name="name_file">
+                        <option value="0">Wybierz plik</option>
+                        {section name=ff loop=$file}
+                        <option value="{$file[ff].name}">{$file[ff].name}</option>
+                        {/section}
+                    </select>
+                </div>
+            </div>
+            <input class="btn btn-success" type="submit" onclick="javascript:loaddiv();" value="Importuj" />	
+            <input type="hidden" name="action" value="import" />
+        </form>
+    </div> 
+</div> 

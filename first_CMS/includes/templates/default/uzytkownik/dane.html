@@ -1,0 +1,98 @@
+<script type="text/javascript" src="{$BASE_URL}/js/showHide.js"></script>
+{literal}
+<script type="text/javascript">
+<!-- <![CDATA[
+	window.onload = function()
+	{
+		var f = document.getElementById('dane');
+		var d = document.getElementById('typ_konta');
+		
+		if(f.b1.checked == true)
+		{
+			d.style.display='block';
+		}else
+		{
+			d.style.display='none';
+		}
+	}
+		
+// ]CDATA]> -->
+</script>
+{/literal}
+
+	<!-- page-title -->  
+	<div id="page-title"><h1>{$LANG._PAGE_USER}</h1></div><!-- koniec: page-title -->
+	
+	<!-- page-content -->
+	<div id="page-content">
+		<p>
+			{$LANG._USER_CHANGE_DATA} 		
+		</p>
+
+		{if $user_error}
+			<div class="error center">{$user_error}</div>
+		{/if}
+		{if $register_error}
+			<p class="center error">{$register_error}</p>
+		{/if}
+
+		<form method="post" id="dane" action="{$smarty.server.PHP_SELF}">
+		<table align="center">
+			<tr>
+				<td width="250"><b>{$LANG._PAGE_LOGIN}</b><br /><small>{$LANG._USER_NAME_ACCOUNT}</small></td>
+				<td><b>{$u.login}</b></td>
+			</tr><tr>			
+				<td><b>{$LANG._PAGE_EMAIL}</b></td>
+				<td><a href="mailto:{$u.email}">{$u.email}</a></td>			
+			</tr><tr>
+				<td><b>{$LANG._USER_TYPE_ACCOUNT}</b><br /><small>{$LANG._USER_CHECK_TRUE}</small></td>
+				<td>
+					<input id="b0" type="radio" name="business" onclick="hide('typ_konta');" value="0"{if $u.business==0} checked="true"{/if} />
+					<label for="b0">{$LANG._USER_PERSON}</label><br />
+					<input id="b1" type="radio" name="business" onclick="show('typ_konta');" value="1"{if $u.business==1} checked="true"{/if} />
+					<label for="b1">{$LANG._USER_FIRM}</label><br />				
+				</td>			
+			</tr><tr>
+				<td colspan="2">
+					<table id="typ_konta" cellpaddin="0" cellspacing="0">	
+						<tr>
+							<td width="250"><b>{$LANG._USER_FIRM_NAME}</b></td>
+							<td>
+							<input type="text" class="text" name="firm_name" value="{$u.firm_name}" size="30" /></td>
+						</tr><tr>
+							<td><b>{$LANG._USER_NIP}</b><br /><small>{$LANG._USER_VAT}</small></td>
+							<td><input type="text" class="text" name="nip" value="{$u.nip}" maxlength="10" size="10" /></td> 
+						</tr>
+					</table>
+				</td>
+			</tr><tr>
+				<td><b>{$LANG._PAGE_NAME}</b></td>
+				<td><input type="text" class="text" name="first_name" value="{$u.first_name}" size="30" /></td>
+			</tr><tr>
+				<td><b>{$LANG._PAGE_LASTNAME}</b></td>
+				<td><input type="text" class="text" name="last_name" value="{$u.last_name}" size="30" /></td>			
+			</tr><tr>
+				<td><b>{$LANG._PAGE_STREET}</b></td>
+				<td><input type="text" class="text" name="street" value="{$u.street}" size="30" /></td>		
+			</tr><tr>
+				<td><b>{$LANG._PAGE_NR_BUD}</b></td>
+				<td><input type="text" class="text" name="nr_bud" value="{$u.nr_bud}" size="10" /> <input type="text" class="text" name="nr_lok" value="{$u.nr_lok}" size="10" /></td>		
+			</tr><tr>
+				<td><b>{$LANG._PAGE_POSTCODE}</b><br /><small>{$LANG._PAGE_POSTCODE_TRUE}</small></td>
+				<td><input type="text" class="text" name="post_code" value="{$u.post_code}" size="6" maxlength="6" /></td>			
+			</tr><tr>
+				<td><b>{$LANG._PAGE_CITY}</b></td>
+				<td><input type="text" class="text" name="city" value="{$u.city}" size="30" /></td>			
+			</tr><tr>
+				<td><b>{$LANG._PAGE_PHONE}</b></td>
+				<td><input type="text" class="text" name="phone" value="{$u.phone}" size="30" /></td>
+			</tr><tr>
+				<td></td>
+				<td>
+					<input type="hidden" name="action" value="save_changes" />
+					<input class="submit" type="submit" value="{$LANG._PAGE_SAVE_CHANGE}" />				
+				</td>			
+			</tr>
+		</table>
+		</form>
+	</div><!-- end page-content -->  

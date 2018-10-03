@@ -1,0 +1,24 @@
+	<!-- page-title -->  
+	<div id="page-title"><h1>{$LANG._PAGE_REMINDER}</h1></div><!-- koniec: page-title -->
+	
+	<!-- page-content -->
+	<div id="page-content">
+		<p class="center">
+			{$LANG._PAGE_JUST_LOGIN} 		
+		</p>
+		{if $pass_error}
+			<p class="error center">{$pass_error}</p>
+		{/if}
+		<form method="post" action="{$smarty.server.PHP_SELF}">
+			<table align="center">
+				<tr>
+					<td>{$LANG._PAGE_LOGIN}</td>
+					<td><input type="text" class="text" size="20" name="login" /></td>
+				</tr>
+					<td></td>
+					<td><input class="submit" type="submit" value="{$LANG._PAGE_NEW_REMINDER}" /></td>
+				</tr>							
+			</table>		
+			<input type="hidden" name="action" value="remind_pass" />
+		</form>
+	</div><!-- end page-content -->  

@@ -1,0 +1,57 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Strony</a><a class="current">Zarządzanie</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a href="?action=add" title="Nowa strona" class="btn"><i class="icon-plus"></i>   Dodaj nową</a>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+                <h5>Strony serwisu</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <th align="left">Treść</th>
+                        <th width='100'>Data utworzenia</th>
+                        <th width='80'>Aktywna</th>
+                        <th width='80'>Galeria</th>
+                        <th width='120'>Akcje</th>
+                        </thead>
+                    <tbody>
+                        {section name=a1 loop=$articles}
+                        <tr>
+                            <td align="left">
+                                <a href="?action=edit&amp;id={$articles[a1].id}">
+                                    {if $articles[a1].auth==1}
+                                    <img border="0" src="{$BASE_URL}/templates/admin/img/encrypted.png" alt="Zabezpieczona hasłem" />
+                                    {/if}
+                                    <b>{$articles[a1].title}</b></a><br />
+                                {$articles[a1].content_short}
+                            </td>
+                            <td width='100'>{$articles[a1].date_add}</td>
+                            <td width='80'>{if $articles[a1].active==1}<i class="icon-eye-open">{else}
+                                <i class="icon-eye-close">{/if}</td>
+                            <td width='80'>{if $articles[a1].gallery_id>0}<i class="icon-film"></i>{else}
+                                <i class="icon-remove">{/if}</td>
+                            <td width='120'>
+                                <a class="btn btn"  href="{$articles[a1].title_url}" title="Podgląd">
+                                  <i class="icon-search"></i>
+                                </a>
+                                <a class="btn btn"  href="?action=edit&amp;id={$articles[a1].id}" title="Edytuj">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <a class="btn btn"  href="?action=delete&amp;id={$articles[a1].id}" title="Kasuj">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {sectionelse}
+                        <tr><td colspan="2" class="center">Brak stron w bazie. Aby stworzyć nową artykuł użyj opcji powyżej.</td></tr>
+                        {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<script type="text/javascript" src="{$BASE_URL}/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="{$BASE_URL}/js/uploadify/swfobject.js"></script>
+<script type="text/javascript" src="{$BASE_URL}/js/uploadify/jquery.uploadify.v2.1.0.min.js"></script>
+{literal}
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function($) {
+    $('#multiuploader').uploadify({
+    {/literal}
+        'uploader': '{$BASE_URL}/js/uploadify/uploadify.swf',
+        'script': '{$BASE_URL}/js/uploadify/uploadify.php',
+        'folder': '{$path}/upload/{$gal_dir}/{$gal.id}',
+        'buttonText':'Wybierz pliki',
+        'multi': true,
+        'auto': true,
+        'sizeLimit': 2000000,
+        'onAllComplete'  : {literal}function(){ {/literal} window.location.replace("?action=show_gallery&id={$gal.id}") {literal} },{/literal}
+    'cancelImg': '{$BASE_URL}/js/uploadify/cancel.png'
+    {literal}
+    });
+    });</script>
+{/literal}
+
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Aktualności</a><a class="current">Dodj nową</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a class="btn" href="?"><i class="icon-step-backward"></i> Powrót do listy galerii</a>
+        </br></br>
+        <div class="info">
+            {$gal.content_short}
+        </div>
+        </br>
+        <div class="center">
+            <a class="btn btn"  href="?action=edit_gallery&amp;id={$gal.id}" title="Edytuj"><i class="icon-edit"></i> Edytuj galerię</a>
+            <a class="btn btn"  href="?action=delete_gallery&amp;id={$gal.id}" title="Usuń" onclick="return confirmDelete();"><i class="icon-trash"></i> Usuń galerię</a>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-picture"></i> </span>
+                <h5>Gallery</h5>
+            </div>
+            <div class="widget-content">
+                <ul class="thumbnails">
+                    {section name=g loop=$gallery}  
+                    <li class="span2"> <a> <img src="{$gallery[g].src}?{math equation='rand(0, 10000)'}" alt="{$gal.title}" /> </a>
+                        <div class="actions"> 
+                            {if not $smarty.section.g.first}
+                            <a href="?id={$gallery[g].id}&gallery_id={$gal.id}&action=up" title="Przenieś w górę">
+                                <i class="icon-sort-up"></i>
+                            </a>
+                            {/if}
+                            <a class="lightbox_trigger" href="{$gallery[g].url}"><i class="icon-search"></i></a> 
+                            <a href="?delete_photo={$gallery[g].name}&amp;id={$gal.id}"><i class="icon-trash"></i></a>
+                            {if not $smarty.section.g.last}
+                            <a href="?id={$gallery[g].id}&gallery_id={$gal.id}&action=down" title="Przenieś w dół">
+                                <i class="icon-sort-down"></i>
+                            </a>
+                            {/if}
+                        </div>
+                    </li>
+                    {sectionelse}
+                    <div class="alert alert-warning">Aktualnie brak zdjęć w galerii.</div>
+                    {/section}
+                </ul>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-picture"></i> </span>
+                <h5>Pliki do dołączenia</h5>
+            </div>
+            <div class="widget-content">
+                <div class="alert alert-info">
+                    Wybierz zdjęcia i załaduj je na serwer [można wybrać większą liczbe zdjęć]:
+                </div>
+                <div id="multiuploader"></div>
+                </br>
+                <form method="post" name="gal_zdjecia" enctype="multipart/form-data" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <ul class="thumbnails">
+                        {foreach from=$aPliki item=val key=k name=p}
+                        <li class="span2" style="text-align: center;">
+                            <img src="{$gal_url}/{$gal.id}/{$val}" width="130" alt=""/>
+                            <div class="actions"> 
+                                <a href="javascript:void(0)">
+                                    <input type="checkbox" name="new_foto_{$k}" id="new_foto_{$k}" value="1" checked="checked" />
+                                    <input type="hidden" name="temp_{$k}" id="temp_{$k}" value="temp"/>
+                                </a>
+                                <a href="?action=delete_serv_photo&plik={$val}&id={$gal.id}" title="Usuń zdjęcie z serwera" onclick="return confirmDelete();"><i class="icon-trash"></i></a>
+                            </div>
+                        </li>
+                        {/foreach}
+                    </ul>
+                    <input class="btn btn-success" type="submit" value="Dodaj zdjęcia" />
+                    <input type="hidden" name="action" value="add_photo" />
+                    <input type="hidden" name="gallery_id" value="{$gal.id}" />
+                    <input type="hidden" name="title_url" value="{$gal.title_url}" />
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

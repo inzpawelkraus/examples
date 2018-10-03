@@ -1,0 +1,29 @@
+<section class="body page petitions" >
+    <div class="container petitions">
+
+        {section name=aa loop=$articles}
+        <div class="petition col-xs-6">
+            <a href="{$articles[aa].url}" title="Przejdź do petycji: {$articles[aa].title}" style="color: #333;">
+            <div class="img_container">
+                {if $articles[aa].photo.small}
+                <img src="{$articles[aa].photo.small}"/>
+                {else}
+                <img src="{$TPL_URL}/img/petition1.jpg"/>
+                {/if}
+                <span class="petitionTitle">{$articles[aa].title}</span>
+                <span class="progress"><spam class="counterBox">{$articles[aa].progress}</spam>%</span>
+                <span class="info">Zebraliśmy </br><strong class="counterBox">{$articles[aa].comm}</strong> </br>podpisów</span>
+            </div>
+            <div class="content">
+                {$articles[aa].content_short|truncate:340:"...":true}
+                <a class="more" href="{$articles[aa].url}" title="Przejdź do petycji: {$articles[aa].title}">Czytaj wiecej</a>
+            </div>
+        </div>
+        </a>
+        {sectionelse}
+        <p class="center error">{$LANG._PAGE_NO_NEWS}</p>
+        {/section}
+        {include file="misc/stronicowanie.html"}
+
+    </div>
+</section>

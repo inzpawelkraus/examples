@@ -1,0 +1,67 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Strony</a><a class="current">Dodaj nową</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Formularz dodawania strony</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label">Tytuł strony :</label>
+                            <div class="controls">
+                                {section name=j1 loop=$JEZYK}
+                                <input class="text title" type="text" name="title[{$JEZYK[j1].id}]" placeholder="{$JEZYK[j1].name}"/>
+                                {/section}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <label>
+                                    <input id="show_title" type="checkbox" name="show_title" value="1" checked="true" />
+                                    Pokazuj tytuł</label>
+                                <label>
+                                    <input id="active" type="checkbox" name="active" value="1" checked="true" />
+                                    Pokazuj podstronę w serwisie</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Galeria :</label>
+                            <div class="controls">
+                                <select name="gallery_id">
+                                    <option value="">- brak -</option>
+                                    {section name="g" loop=$galleries}
+                                    <option value="{$galleries[g].id}">{$galleries[g].title}</option>
+                                    {/section}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Krótki opis :</label>
+                            <div class="controls">
+                                {section name=j3 loop=$JEZYK}
+                                <textarea class="seo-konf" rows="6" name="content_short[{$JEZYK[j3].id}]" placeholder="{$JEZYK[j3].name}"></textarea>
+                                {/section}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Treść :</label>
+                            <div class="controls">
+                                {section name=j4 loop=$JEZYK}
+                                <span>{$JEZYK[j4].name}</span></br>
+                                <textarea id="edytor_{$JEZYK[j4].id}" name="content[{$JEZYK[j4].id}]"></textarea>
+                                {/section}
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input class="btn btn-success" type="submit" name="action" value="Dodaj stronę" />
+                            <input class="btn btn-danger" type="submit" name="action" value="Porzuć zmiany" />
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

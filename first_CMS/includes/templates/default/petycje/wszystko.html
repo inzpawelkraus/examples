@@ -1,0 +1,27 @@
+<section class="body page petitions" >
+    <div class="container petitions">
+
+        {section name=aa loop=$articles}
+        <div class="petition col-xs-6">
+            <div class="img_container">
+                {if $articles[aa].photo.small}
+                <img src="{$articles[aa].photo.small}"/>
+                {else}
+                <img src="{$TPL_URL}/img/petition1.jpg"/>
+                {/if}
+                <span class="petitionTitle">{$articles[aa].title}</span>
+                <span class="progress">{$articles[aa].progress}%</span>
+                <span class="info">Zebraliśmy </br><strong>{$articles[aa].comm}</strong> </br>podpisów</span>
+            </div>
+            <div class="content">
+                {$articles[aa].content_short|truncate:340:"...":true}
+                <a href="{$articles[aa].url}" title="{$articles[aa].title}" class="more">Czytaj wiecej</a>
+            </div>
+        </div>
+        {sectionelse}
+        <p class="center error">{$LANG._PAGE_NO_NEWS}</p>
+        {/section}
+        {include file="misc/stronicowanie.html"}
+
+    </div>
+</section>

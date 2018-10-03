@@ -1,0 +1,40 @@
+<div class="singleGallery col-md-12 no-padding">
+    {section name=g loop=$gallery}
+    <div class="col-md-6 ">
+        <a class="lightbox_trigger" href="{$gallery[g].src}">
+            <img class="gal-img2" src="{$gallery[g].src}" alt="{if $gallery[g].title}{$gallery[g].title}{else}{$gallery[g].anchor}{/if}" />
+        </a>
+    </div>
+    {/section}
+</div>
+<script>
+    {literal}
+    $('.lightbox_trigger').click(function (e) {
+
+	e.preventDefault();
+
+	var image_href = $(this).attr("href");
+
+	if ($('#lightbox').length > 0) {
+
+	    $('#imgbox').html('<img src="' + image_href + '" /><p><i class="icon-remove icon-white"></i></p>');
+
+	    $('#lightbox').slideDown(500);
+	} else {
+	    var lightbox =
+		    '<div id="lightbox" style="display:none;">' +
+		    '<div id="imgbox"><img src="' + image_href + '" />' +
+		    '<p><i onclick="closeLightbox()" style="color: #ffffff;" class="fa fa-times" aria-hidden="true" ></i></p>' +
+		    '</div>' +
+		    '</div>';
+
+	    $('body').append(lightbox);
+	    $('#lightbox').slideDown(500);
+	}
+
+    });
+    function closeLightbox() {
+	$('#lightbox').hide(200);
+    }
+    {/literal}
+</script>

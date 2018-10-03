@@ -1,0 +1,22 @@
+<div id="fb-root"></div>
+{literal}
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.9&appId=1909727775977398";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{/literal}
+
+
+<section class="socials">
+    <div class="container">
+        <div class="socials_bar">
+            <strong>Zrób dobry uczynek</strong> i pomóż nam zebrac podpisy. Wystarczy że udostępnisz akcje
+            <a class="social_button twitter pull-right" target="blank" href="http://twitter.com/intent/tweet?status={$CONF.server_addr}{$article.url}+{$CONF.server_addr}{$article.title}"><i class="fa fa-twitter"></i><span>Udostępnij na Twitter</span></a>
+            <a target="_blank" class="social_button facebook pull-right" href="http://www.facebook.com/sharer/sharer.php?u={$CONF.server_addr}{$article.url}&title={$article.title}&description={$article.content}&photo={$article.photo.photo}"><i class="fa fa-facebook"></i><span>Udostępnij na Facebooku</span></a>
+        </div>
+    </div>
+</section>

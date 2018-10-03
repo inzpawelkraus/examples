@@ -1,0 +1,12 @@
+^istats5/logs$
+^templates/_cache$
+^templates/_compile$
+^upload/aktualnosci$
+^upload/file$
+^upload/flash$
+^upload/gallery$
+^upload/pages$
+^upload/templates$
+^upload/zmieniarka$
+^config\.inc\.php$
+^sitemap\.xml$

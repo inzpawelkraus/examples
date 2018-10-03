@@ -1,0 +1,20 @@
+<div id="page-title"><h1>{$LANG._PAGE_NEWS}</h1></div>
+
+<div id="page-content">
+	{section name=aa loop=$articles}
+		{if $smarty.section.aa.first}<div class="art">{/if}
+			<div class="art2">
+				{if $articles[aa].photo.photo}<a onclick="location.href='{$articles[aa].url}'" class="kursor" rel="nofollow" title="{$articles[aa].title}"><img class="news-foto" src="{$articles[aa].photo.small}" alt="{$articles[aa].title}" /></a>{/if}
+				<a href="{$articles[aa].url}" title="{$articles[aa].title}"><strong>{$articles[aa].title}</strong></a><br />
+				{$articles[aa].content_short}<br />
+				<div class="data">{$articles[aa].date_add}</div>
+				<div class="wiecej"><a onclick="location.href='{$articles[aa].url}'" class="kursor" rel="nofollow" title="{$articles[aa].title}">{$LANG._PAGE_MORE}</a></div>
+			</div>
+		{if $smarty.section.aa.last}</div>{/if}
+	{sectionelse}
+		<p class="center error">{$LANG._PAGE_NO_NEWS}</p>
+	{/section}
+		
+{include file="misc/stronicowanie.html"}
+
+</div>

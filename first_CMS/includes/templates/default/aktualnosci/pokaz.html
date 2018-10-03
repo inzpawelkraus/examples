@@ -1,0 +1,45 @@
+{if $article.show_title}
+    <div id="page-title">
+        <h1>{$LANG._PAGE_NEWS} &raquo; {$article.title}</h1>
+    </div>
+{/if}
+<div id="page-content">
+    {if $article.photo.photo}
+        <a href="{$article.photo.photo}" title="{$article.title}" class="fancybox" rel="fancybox">
+            <img class="news-foto" src="{$article.photo.small}" alt="{$article.title}" />
+        </a>
+    {/if}
+    {$article.content}
+</div>  
+
+<br class="clear" />
+{if $CONF.show_tagi==1}
+    {section name=t loop=$article.tagi}
+        {if $smarty.section.t.first}
+            <div class="tagi">
+            {/if}
+            <a style="margin: 0 10px;" href="{$BASE_URL}/szukaj/{$article.tagi_url[t]}" title="{$article.tagi[t]}">{$article.tagi[t]}</a>
+            {if $smarty.section.t.last}
+            </div>
+        {/if}
+    {/section}		
+{/if}
+
+{if $pliki}
+    <div>
+        <div>{$LANG._FILES_HEADER}</div>
+        {section name=pp loop=$pliki}
+            <a class="main-link" href="{$pliki[pp].url}" title="{$pliki[pp].name}">{$pliki[pp].name}</a>
+        {/section}
+    </div>
+{/if}
+
+{if $gallery}
+    {include file="galeria/pokaz-podstrona.html" gal=$gallery gallery=$galleries}
+{/if}
+
+{if $CONF.show_back==1}<div class="back"><a href="{$smarty.server.HTTP_REFERER}" title="{$LANG._PAGE_BACK}">&laquo; {$LANG._PAGE_BACK}</a></div>{/if}
+
+{if $show_comments}
+    {include file="misc/komentarze.inc.html"}
+{/if}

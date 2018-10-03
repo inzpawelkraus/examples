@@ -1,0 +1,99 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Frazy Google</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="alert alert-info">
+        Ranking pozycji w Google na podane frazy (słowa kluczowe), max można dodać 10 fraz.<br />
+        System automatycznie sprawdza pozycję w wyszukiwarce google i zapisuje dane do systemu.
+    </div>
+    <div class="alert alert-{if $CONF.check_google==1}success{else}warning{/if}">
+        Aktualnie automat sprawdzający jest: {if $CONF.check_google==1}<strong class="not-important">włączony</strong>{else}<strong class="important">wyłączony</strong>{/if} dla domeny: <strong>{$CONF.server_addr}</strong>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+            <h5>Aktualności serwisu</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th width="40">Lp.</th>
+                        <th>Fraza</th>
+                        <th>Pozycja</th>
+                        <th></th>
+                        <th>Opcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {section name=aa loop=$anchory}
+                    <tr class="shadow_light">
+                        <td style="text-align: center">{$smarty.section.aa.iteration}</td>
+                        <td><a href="./ranking.php?id={$anchory[aa].id}&action=pokaz" title="Pokaż wyniki">{$anchory[aa].anchor}</a></td>
+                        <td class="center"><strong>{$anchory[aa].pozycja}</strong></td>
+                        <td>
+                            <div id="edit_{$anchory[aa].id}" style="display: none;">
+                                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                                    <div class="control-group">
+                                        <label class="control-label">&nbsp;</label>
+                                        <div class="controls">
+                                            <input class="text" type="text" name="anchor" value="{$anchory[aa].anchor}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <input type="hidden" name="action" value="edit_anchor" />
+                                        <input type="hidden" name="id" value="{$anchory[aa].id}" />
+                                        <input class="btn btn-success" type="submit" name="submit" value="Zapisz" />
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                        <td width='130' style="text-align: center">
+                            <a class="btn btn"  href="./ranking.php?id={$anchory[aa].id}&action=pokaz" title="Pokaż wyniki">
+                                <i class="icon-bar-chart"></i>
+                            </a>
+                            <a class="btn btn" href="#" onclick="toggle('edit_{$anchory[aa].id}'); return false;" title="Edytuj">
+                                <i class="icon-edit"></i>
+                            </a>		
+                            <a class="btn btn"  href="./ranking.php?id={$anchory[aa].id}&action=del_anchor" title="Kasuj">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {sectionelse}
+                    <tr><td colspan="4">Brak pozycji.</td></tr>
+                    {/section}
+                </tbody>
+            </table>
+        </div>
+        {if $liczba <10}
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Dodaj nową frazę</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Fraza :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="anchor" />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="hidden" name="action" value="add_anchor" />
+                        <input class="btn btn-success" type="submit" value="Dodaj" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        {/if}
+    </div>
+</div>
+{literal}
+<script>
+    function toggle(e)
+    {
+	$("#" + e).slideToggle();
+    }
+</script>
+{/literal}

@@ -1,0 +1,55 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Słownik</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <a class="btn" href="?action=add"><i class="icon-plus"></i>   Dodaj nowy wyraz</a></br></br>
+    <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+        <div class="control-group"></br>
+            <input type="text" class="text" name="keyword" value="{$smarty.post.keyword}"/>
+            <input type="hidden" name="action" value="szukaj" />
+        </div>
+        <div class="control-group"></br>
+            <input class="btn btn-success" type="submit"  value="Szukaj" />
+        </div>
+    </form>
+    <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+        <div class="widget-box collapsible">
+            {section name=a1 loop=$articles}
+            <div class="widget-title"> <a data-toggle="collapse" href="#collapse{$articles[a1].id}"> <span class="icon"><i class="icon-arrow-right"></i></span>
+                    <h5>Klucz: " {$articles[a1].label} "</h5>
+                </a> </div>
+            <div id="collapse{$articles[a1].id}" class="collapse">
+                <div class="widget-content"><textarea class="pl" name="pl[{$articles[a1].id}]" style="width: 100%;">{$articles[a1].pl}</textarea></div>
+            </div>
+            {/section}
+        </div>
+        <div class="form-actions">
+            <input type="hidden" name="page" value="{$page}" />
+            <input type="hidden" name="action" value="save_all" />
+            <input class="btn btn-success" type="submit"  value="Zapisz" />
+        </div>
+    </form>
+    {if $pages>1}
+    <div class="pagination"><ul>
+            {if $page>1}
+            <li><a class="link" href="?page={$page-1}">&laquo; Poprzednia</a></li>
+            {else}
+            <li><span class="inactive">&laquo; Poprzednia</span></li>
+            {/if}
+            {section name=p start=1 loop=$pages+1}
+            {assign var=i value=$smarty.section.p.index}
+            {if $i<$page-4 and $i==1}<li><a class="link" href="?page={$i}"> {$i} </a></li>{if $i!=$page-5}<li><a>...</a></li>{/if}{/if}
+            {if $i<$page+5 and $i>$page-5}
+            {if $i == $page}<li><span class="inactive"> {$page} </span></li>{else}<li><a class="link" href="?page={$i}"> {$i} </a></li>{/if}
+            {/if}
+            {if $i>$page+4 and $i==$pages}{if $i!=$page+5}<li><a>...</li></a>{/if}<li><a class="link" href="?page={$i}"> {$i} </a></li>{/if}
+            {/section}
+            {if $page<$pages}
+            <li><a class="link" href="?page={$page+1}">Następna &raquo;</a></li>
+            {else}
+            <li><span class="inactive">Następna &raquo;</span></li>
+            {/if}
+        </ul></div>
+    {/if}
+</div>

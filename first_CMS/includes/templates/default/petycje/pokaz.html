@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="{$TPL_URL}/css/progress_style.css" />
+<section class="body">
+    <div class="container">
+        <div class="petition no-padding single col-md-6">
+            <div class="img_container">
+                {if $article.photo.photo}
+                <img class="news-foto" src="{$article.photo.small}" alt="{$article.title}" />
+                {else}
+                <img src="{$TPL_URL}/img/slide1.jpg"/>
+                {/if}
+                <span class="petitionTitle">{$article.title}</span>
+                <span class="progress">{$article.progress}%</span>
+                <span class="info">Zebraliśmy </br><strong>{$article.comm}</strong> </br>podpisów</span>
+            </div>
+            <div class="content">
+                {$article.content}    
+            </div>
+
+        </div>
+        <div class="petition padding-left-50 single col-md-6">
+            <div class="petitionCountManager">
+                <span class="title large">Podpisz</span>
+                <span class="title medium">Liczy sie każdy głos</span>
+                <div class="progress_container">
+                    <div class="progress_bar">
+                        <div id="myProgress">
+                            <div style="width: {$article.progress}%;" id="myBar"></div>
+                            <span class="progressPin" style="left: calc({$article.progress}% - 25px);">{$article.progress}%</span>
+                        </div>
+                    </div>
+                    <span class="label first pull-left no-padding">0</span>
+                    <span class="label first pull-right no-padding">{$article.limit}</span>
+                    <div class="counter pull-left">
+                        <span class="label white no-padding  pull-left">{$article.comm}</span>
+                        <span class="label normall no-padding  pull-left">&nbsp;PODPISAŁO, NIECH BĘDZIE NAS {$article.limit}</span>
+                    </div>
+                </div>
+            </div>
+            {if $show_comments}
+            {include file="misc/podpisz.inc.html"}
+            {/if}
+        </div>
+        {if $gallery}
+        {include file="galeria/pokaz-podstrona.html" gal=$gallery gallery=$galleries}
+        {/if}
+    </div>
+</section>
+{if $article.fbshare}
+{include file="misc/socials.html"}
+{/if}

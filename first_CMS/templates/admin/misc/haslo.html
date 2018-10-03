@@ -1,0 +1,40 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Zmiana hasła</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    {if $pass_error}
+    <div class="alert alert-danger">{$pass_error}</div>
+    {/if}
+    <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-edit"></i> </span>
+            <h5>Formularz mziany hasła</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label">Stare hasło :</label>
+                    <div class="controls">
+                        <input type="password" class="text" size="20" name="old" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Nowe hasło :</label>
+                    <div class="controls">
+                        <input type="password" class="text" size="20" name="new1" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Powtórz nowe hasło :</label>
+                    <div class="controls">
+                        <input type="password" class="text" size="20" name="new2" />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <input class="btn btn-success" type="submit" value="Zmień hasło" />
+                    <input type="hidden" name="action" value="save_pass" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

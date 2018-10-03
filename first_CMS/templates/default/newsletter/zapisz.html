@@ -1,0 +1,22 @@
+<section class="body page">
+    <div class="container petitions">
+        <div id="page-title"><h1>{$LANG._PAGE_NEWSLETTER}</h1></div>
+        {if $informacja}
+        <div class="alert alert-info">{$informacja}</div>
+        {/if}
+        {if $newsletter_error}<p align="center" class="error">{$newsletter_error}</p>{/if}
+        <form id="contact_form" class="newpetition" method="post" action="{$smarty.server.PHP_SELF}">
+            <input class="text" type="text" name="first_name" value="{$smarty.post.first_name}" placeholder="{$LANG._PAGE_NAME}"/>
+            <input class="text" type="text" name="last_name" value="{$smarty.post.last_name}" placeholder="{$LANG._PAGE_LASTNAME}"/>
+            <input class="text" type="text" name="email1" value="{$smarty.post.email1}" placeholder="{$LANG._PAGE_EMAIL}"/>
+            <input class="text" type="text" name="email2" value="{$smarty.post.email2}" placeholder="{$LANG._PAGE_REPEAT_EMAIL}"/>
+            <input id="rules" type="checkbox" name="rules" value="1" />
+            <label for="rules">{$LANG._NEWSLETTER_ACCEPT} 
+                <a href="{$BASE_URL}/newsletter.html?show=rules" class="fancybox" rel="fancybox" title="{$LANG._NEWSLETTER_ACCEPT2}">
+                    <strong>{$LANG._NEWSLETTER_ACCEPT2}</strong></a>.</label></br>
+            <input class="submit" type="submit" value="{$LANG._NEWSLETTER_SAVE}" /></br>
+            <p align="center"><a href="?show=remove">{$LANG._NEWSLETTER_UNSUBSCRIBE}</a></p>
+            <input type="hidden" name="action" value="add_email" />
+        </form>
+    </div>
+</section>

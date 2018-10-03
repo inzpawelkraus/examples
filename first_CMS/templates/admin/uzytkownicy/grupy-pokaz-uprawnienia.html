@@ -1,0 +1,25 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a> <a>Użytkownicy</a><a class="current">Grupy użytkowników</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <a class="btn" href="?"><i class="icon-step-backward"></i> Powrót</a>
+        <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal"></br>
+            <div class="control-group"></br>
+                {section name=pri loop=$privileges}
+                <label>
+                    <input id="in{$smarty.section.pri.index}" type="checkbox" name="privileges[]" value="{$privileges[pri].id}" {if $privileges[pri].status==1}checked="checked"{/if} />
+                           <b>{$privileges[pri].name}</b> <small>{$privileges[pri].description}</small></label>
+                {sectionelse}
+                <p class="center error">Brak uprawnień w bazie!</p>
+                {/section}
+            </div>
+            <div class="form-actions">
+                <input class="btn btn-success" type="submit" value="Zapisz zmiany" />
+                <input type="hidden" name="action" value="edit_group" />
+                <input type="hidden" name="group_id" value="{$smarty.get.group_id}" />
+            </div>
+        </form>
+    </div>
+</div>

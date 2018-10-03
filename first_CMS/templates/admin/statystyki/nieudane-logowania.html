@@ -1,0 +1,31 @@
+<div class="widget-box">
+    <div class="widget-title"> <span class="icon"> <i class="icon-lock"></i> </span>
+        <h5>Nieudane logowania</h5>
+    </div>
+    <div class="widget-content">
+        <div class="error_ex" style='overflow-x: auto'>
+                <table class="table table-bordered data-table">
+                    <thead>
+                        <tr>
+                            <th>Login</th>
+                            <th>Hasło</th>
+                            <th>Powód odrzucenia</th>
+                            <th>Data</th>
+                            <th>Host</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {section name=l loop=$log}
+                        <tr>
+                            <td><b>{$log[l].login}</b></td>
+                            <td class="not-important">{$log[l].pass}</td>
+                            <td>{$log[l].reason}</td>	
+                            <td class="center"><span class="not-important">{$log[l].date_add}</span></td>
+                            <td class="center"><span class="not-important">{$log[l].host}</span></td>
+                        </tr>
+                        {/section}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>

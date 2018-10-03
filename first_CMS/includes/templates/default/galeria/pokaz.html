@@ -1,0 +1,36 @@
+{if $gal.show_title}
+	<div id="page-title">
+		<h1>{$LANG._PAGE_GALLERY} &raquo; {$gal.title}</h1>
+	</div>
+{/if}
+
+<div id="page-content"> 
+		{$gal.content}
+	
+		{section name=g loop=$gallery}
+			{if $smarty.section.g.first}<div class="gal">{/if}
+			<div class="gal2">
+					<a href="{$gallery[g].url}" title="{if $gallery[g].title}{$gallery[g].title}{else}{$gallery[g].anchor}{/if}" class="fancybox" rel="fancybox">
+						<img class="gal-img" src="{$gallery[g].src}" alt="{if $gallery[g].title}{$gallery[g].title}{else}{$gallery[g].anchor}{/if}" />
+					</a>
+			</div>
+			{if $smarty.section.g.last}</div>{/if}
+		{sectionelse}
+			<p class="center error">Przepraszamy, ale aktualnie brak zdjęć w galerii.</p>
+		{/section}
+</div>
+
+		<br class="clear" />
+	{if $CONF.show_tagi==1}
+		{section name=t loop=$gal.tagi}
+			{if $smarty.section.t.first}<div class="tagi">{/if}
+				<a style="margin: 0 10px;" href="{$BASE_URL}/szukaj/{$gal.tagi_url[t]}" title="{$gal.tagi[t]}">{$gal.tagi[t]}</a>
+			{if $smarty.section.t.last}</div>{/if}
+		{/section}		
+	{/if}
+
+	{if $CONF.show_back==1}<div class="back"><a href="{$smarty.server.HTTP_REFERER}" title="{$LANG._PAGE_BACK}">&laquo; {$LANG._PAGE_BACK}</a></div>{/if}
+	
+{if $show_comments}
+	{include file="misc/komentarze.inc.html"}
+{/if}

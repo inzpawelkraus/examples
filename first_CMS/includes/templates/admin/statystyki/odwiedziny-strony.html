@@ -1,0 +1,27 @@
+<div class="widget-box">
+    <div class="widget-title"> <span class="icon"> <i class="icon-eye-open"></i> </span>
+        <h5>Odwiedziny stron</h5>
+    </div>
+    <div class="widget-content">
+        <div class="error_ex">
+            <table class="table table-bordered data-table">
+                <thead>
+                    <tr>
+                        <th>Strona</th>
+                        <th>Data utworzenia</th>
+                        <th>Odwiedziny</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {section name=o loop=$sodwiedz}
+                    <tr>
+                        <td><a href="{$odwiedz[o].title_url}" target="_blank"><b>{$sodwiedz[o].title}</b></a></td>
+                        <td>{$sodwiedz[o].date_add}</td>
+                        <td class="center important"><strong>{$sodwiedz[o].count}</strong></td>	
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

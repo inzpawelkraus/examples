@@ -1,0 +1,104 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Komentarze</a><a class="current">Moderacja</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="alert alert-info">
+        Aby edytować i kasować komentarze należy odnaleźć żądany komentarz i użyć odpowiedniej opcji.<br />
+        Wybierz odpowiednią grupe komentarzy.
+    </div>
+
+    <div class="center">
+        <a style="margin: 10px; dispaly: inline; font-size: 10pt; font-weight: bold;" href="?group=pages" title="pokaż komentarze">Podstrony</a>
+        <a style="margin: 10px; dispaly: inline; font-size: 10pt; font-weight: bold;" href="?group=aktualnosci" title="pokaż komentarze">Aktualności</a>
+        <a style="margin: 10px; dispaly: inline; font-size: 10pt; font-weight: bold;" href="?group=galeria" title="pokaż komentarze">Galeria</a>
+    </div>
+    <br class="clear" />
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <th width="1%" align="center">Lp.</th>
+        <th width="1%" align="center">Id.</th>
+        <th width="150">Tytuł</th>
+        <th>Treść</th>
+        <th>Autor</th>
+        <th>Grupa</th>
+        <th width="110">Data</th>
+        <th width="40">Opcje</th>
+        </thead>
+        <tbody>
+            {section name=c loop=$comments}
+            <tr class="{cycle values="shadow_dark,shadow_light"}">
+                <td align="center">{$smarty.section.c.iteration+$interval}.</td>
+                 <td>{$comments[c].id}</td>
+                 <td><strong>{$comments[c].title}</strong></td>
+                 <td>{$comments[c].content|nl2br}</td>	
+                 <td class="center">{$comments[c].author}</td>
+                 <td class="center"><span class="not-important">{if $group=='pages'}Podstrony{/if}{if $group=='aktualnosci'}Aktualności{/if}{if $group=='galeria'}Galeria{/if}</span></td>
+                 <td class="center"><span class="not-important">{$comments[c].date_add}</span></td>
+                 <td width="100">
+                     <a class="btn btn"  onclick="toggle('id{$comments[c].id}'); return false;" title="Edytuj">
+                         <i class="icon-edit"></i>
+                     </a>
+                     <a class="btn btn"  href="?c_page={$c_page}&amp;action=delete&amp;id={$comments[c].id}&amp;group={$smarty.get.group}" title="Kasuj">
+                         <i class="icon-trash"></i>
+                     </a>
+                 </td>
+             </tr>
+             <tr id="id{$comments[c].id}" style="display: none;">
+                 <td colspan="8">
+                     <div style=" float: left; width: 100%;">
+                         <div id="div_{$comments[c].id}">
+                             <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                                 <div class="control-group">
+                                     <label class="control-label">Tytuł :</label>
+                                     <div class="controls">
+                                         <input class="text" type="text" name="title" value="{$comments[c].title}" size="50" />
+                                     </div>
+                                 </div>
+                                 <div class="control-group">
+                                     <label class="control-label">Treść :</label>
+                                     <div class="controls">
+                                         <textarea cols="50" rows="10" name="content">{$comments[c].content}</textarea>
+                                     </div>
+                                 </div>
+                                 <div class="control-group">
+                                     <label class="control-label">Autor :</label>
+                                     <div class="controls">
+                                         <input type="text" class="text" name="author" value="{$comments[c].author}" size="30" />
+                                     </div>
+                                 </div>
+                                 <div class="form-actions">
+                                     <input class="btn btn-success" type="submit" value="Zapisz zmiany" />
+                                     <input type="hidden" name="action" value="edit" />
+                                     <input type="hidden" name="id" value="{$comments[c].id}" />
+                                     <input type="hidden" name="group" value="{$smarty.get.group}" />
+                                 </div>
+                             </form>				
+                         </div>
+                     </div>
+                 </td>
+             </tr>
+             {sectionelse}
+             <tr><td colspan="8" style="text-align: center;">Brak komentarzy w bazie.</td></tr>
+             {/section}
+            </tbody>
+        </table>
+        {if $pages>1}
+        <p align="center">
+            {if $page>1}<a href="?page={$page-1}&amp;group={$smarty.get.group}">&laquo; Poprzednia</a>{else}&laquo; Poprzednia{/if}
+            | Strona {$page} z {$pages} |
+            {if $page<$pages}<a href="?page={$page+1}&amp;group={$smarty.get.group}">Następna &raquo;</a>{else}Następna &raquo;{/if}
+        </p>
+        {/if}
+    </div>
+</div>
+{literal}
+<script>
+    function toggle(e)
+    {
+	$("#" + e).fadeToggle();
+    }
+</script>
+{/literal}

@@ -1,0 +1,67 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Szablony strony</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <form class="formularz" method="post">
+            <div class="control-group">
+                <label class="control-label">Szablon :</label>
+                <div class="controls">
+                    <select name="template" onchange="this.form.submit()">
+                        {section name=t0 loop=$templates}
+                        <option value="{$templates[t0].name}"{if $currTpl==$templates[t0].name} selected="true"{/if}>
+                                {$templates[t0].name}</option>
+                        {/section}
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <input class="btn btn-success" type="submit" value="Zapisz" />
+                    <input type="hidden" name="action" value="save" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>Szablony serwisu</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+                <tr class="shadow_selected"><th>Nazwa szablonu</th><th align="center">Katalog kompilacji</th><th align="center">Katalog cache</th></tr>
+                {section name=t1 loop=$templates}
+                {if $smarty.section.t1.index is odd}
+                <tr class="shadow_dark">
+                    {else}
+                <tr class="shadow_light">
+                    {/if}
+                    <td>
+                        {$templates[t1].name}
+                    </td>
+                    <td align="center">
+                        {if $templates[t1].compile}<span class="green_font">OK</span>
+                        {else}
+                        <span class="red_font">
+                            <b>BŁĄD!</b><br />
+                            Nadaj uprawnienia do zapisu (chmod 777) lub stwórz katalog 
+                            {$ROOT_PATH}/templates/_compile/{$templates[t0].name}
+                        </span>
+                        {/if}
+                    </td>
+                    <td align="center">
+                        {if $templates[t1].cache}<span class="green_font">OK</td>
+                    {else}
+                <span class="red_font">
+                    <b>BŁĄD!</b><br />
+                    Nadaj uprawnienia do zapisu (chmod 777) lub stwórz katalog 
+                    {$ROOT_PATH}/templates/_cache/{$templates[t0].name}
+                </span>
+                </span>
+                {/if}
+                </td>
+                </tr>
+                {/section}
+            </table>
+        </div>
+    </div>
+</div>

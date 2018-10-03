@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    {
+        literal
+    }
+    $(function () {
+        $('#email1').click(function () {
+            $('#email1').val('');
+        });
+    });
+    {
+        /literal}
+</script>
+
+<form class="newsletter_form pull-left" method="post" action="{$BASE_URL}/newsletter.html">
+    <h3>Dołącz do nas</h3>
+    <input class="text" type="text" id="email1" name="email1" value="{if $smarty.post.email1}{$smarty.post.email1}{else}{$LANG._PAGE_PODAJ_EMAIL}{/if}" placeholder="E-mail:">
+    <input class="submit" type="submit" value="" />
+    <div class="doots"></div>
+</form>

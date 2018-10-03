@@ -1,0 +1,92 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a> <a>Użytkownicy</a><a class="current">Grupy użytkowników</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-group"></i> </span>
+                <h5>Grup uzytkowników</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <th>Grupa</th>
+                    <th width='120'>Akcje</th>
+                    </thead>
+                    <tbody>
+                        {section name=grp loop=$groups}
+                        <tr>
+                            <td>
+                                <b>{$groups[grp].name}</b>
+                                <div id="id{$smarty.section.grp.index}" style="display: none;">
+                                    <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">Nazwa :</label>
+                                            <div class="controls">
+                                                <input class="text" style="margin-bottom: 0;" type="text" name="name" value="{$groups[grp].name}" size="25" />
+                                                <input type="hidden" name="id" value="{$groups[grp].id}" />
+                                                <input class="btn btn-success" type="submit" value="Zmień nazwę" />
+                                                <input type="hidden" name="action" value="change_name" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                            <td width="120">
+                                <a class="btn btn" href="?group_id={$groups[grp].id}&amp;action=load_group" title="Zarządzaj uprawnieniami"><i class="icon-lock"></i></a>
+                                <a class="btn btn" href="#" title="Zmień nazwę" onclick="toggle('id{$smarty.section.grp.index}'); return false;"><i class="icon-edit"></i></a>
+                                <a class="btn btn" href="?action=delete_group&amp;id={$groups[grp].id}" title="Kasuj"><i class="icon-trash"></i></a>
+                            </td>
+                        </tr>
+                        {sectionelse}
+                        <tr class="odd gradeX">
+                            <td colspan="2">
+                                Brak zdefiniowanych grup !
+                            </td>
+                        </tr>
+                        {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {literal}
+        <script>
+        function toggle(e)
+        {
+        $("#" + e).slideToggle();
+        }
+        </script>
+        {/literal}
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-plus"></i> </span>
+                <h5>Dodaj nową grupę</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" name="new_group" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Nazwa grupy :</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="name" size="50" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            {section name=pri loop=$privileges}
+                            <label>
+                                <input id="in{$smarty.section.pri.index}" type="checkbox" name="privileges[]" value="{$privileges[pri].id}" />
+                                <b>{$privileges[pri].name}</b> <small>{$privileges[pri].description}</small></label>
+                            {sectionelse}
+                            <p class="center error">Brak uprawnień w bazie!</p>
+                            {/section}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn btn-success" type="submit" value="Dodaj grupę" />
+                        <input type="hidden" name="action" value="add_group" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Petycje</a><a class="current">Edycja</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Formularz edycji petycji</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" enctype="multipart/form-data" class="form-horizontal">
+                    <table class="special" cellspacing="1" cellpadding="0">
+                        <div class="control-group">
+                            <label class="control-label">Tytuł strony :</label>
+                            <div class="controls">
+                                {section name=j1 loop=$JEZYK}
+                                <input class="text title" type="text" name="title[{$JEZYK[j1].id}]" placeholder="{$JEZYK[j1].name}" value="{$opis[j1].title}" />
+                                <input type="hidden" name="old_title_url[{$JEZYK[j1].id}]" value="{$opis[j1].title_url}" /> 
+                                {/section}
+                            </div>
+                        </div>
+
+                        <input class="text" type="hidden" name="date_add" id="date_add" Value="{$article.date_add}" />
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <label>
+                                    <input id="show_title" type="checkbox" name="show_title" value="1" {if $article.show_title}checked="true" {/if} />
+                                           Pokazuj tytuł</label>
+                                <label>
+                                    <input id="active" type="checkbox" name="active" value="1" {if $article.active}checked="true" {/if} />
+                                           Pokazuj petycję w serwisie</label>
+                                <label>
+                                    <input type="checkbox" id="comments" name="comments" value="1" {if $article.comments}checked="true" {/if} />
+                                           Zezwól na głosowanie</label>
+                                <label>
+                                    <input id="fbshare" type="checkbox" name="fbshare" value="1" {if $article.fbshare}checked="true" {/if} />
+                                           Udostępnij na portalach społecznościowych</label>
+                                <label>
+                                    <input id="fbshare" type="checkbox" name="done" value="1" {if $article.done}checked="true" {/if} />
+                                           Umieść w realizacjach</label>
+                                <label>
+                                    <input id="fbshare" type="checkbox" name="slider" value="1" {if $article.slider}checked="true" {/if} />
+                                           Umieść w Sliderze</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Limit :</label>
+                            <div class="controls">
+                                <input class="text limit" type="text" name="limit" value="{$article.limit}" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Podpisało :</label>
+                            <div class="controls">
+                                <input class="text limit" type="text" name="signed" value="{$article.signed}" placeholder="W przypadku braku pokazuje wartości rzeczywiste"/>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">Postęp :</label>
+                            <div class="controls">
+                                <input class="text limit" type="text" name="progres" value="{$article.progres}" placeholder="W przypadku braku pokazuje wartości rzeczywiste"/>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Zdjęcie :</label>
+                            <div class="controls">
+                                <input class="file" type="file" name="photo" size="80" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Galeria :</label>
+                            <div class="controls">
+                                <select name="gallery_id">
+                                    {section name="g" loop=$galleries}
+                                    <option value="{$galleries[g].id}" {if $article.gallery_id==$galleries[g].id} selected="selected"{/if}>{$galleries[g].title}</option>
+                                    {/section}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Krótki opis :</label>
+                            <div class="controls">
+                                {section name=j3 loop=$JEZYK}
+                                <textarea class="seo-konf" rows="6" name="content_short[{$JEZYK[j3].id}]" placeholder="{$JEZYK[j3].name}">{$opis[j3].content_short}</textarea>
+                                {/section}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Treść :</label>
+                            <div class="controls">
+                                {section name=j4 loop=$JEZYK}
+                                <span>{$JEZYK[j4].name}</span></br>
+                                <textarea id="edytor_{$JEZYK[j4].id}" name="content[{$JEZYK[j4].id}]">{$opis[j4].content}</textarea>
+                                {/section}
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="hidden" name="id" value="{$article.id}" />
+                            <input class="btn btn-success" type="submit" name="action" value="Zapisz" />
+                            <input class="btn btn-info" type="submit" name="action" value="Zapisz i kontynuuj edycję" />
+                            <input class="btn btn-danger" type="submit" name="action" value="Porzuć zmiany" />
+                        </div>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+
+
+
+        {if $article.photo}
+        <div class="widget-box">
+            <div class="widget-content nopadding">
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Zdjęcie wyróżniające</h5>
+                        </div>
+                        <div class="widget-content nopadding" style="height: 300px; display: table-cell; vertical-align: middle; text-align: center;">
+                            {if $article.photo.photo}
+                            <img style="max-width: 500px;" src="{$article.photo.photo}?{math equation='rand(0, 10000)'}" alt="{$article.title}" />
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="widget-box">
+                        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                            <h5>Miniaturka</h5>
+                        </div>
+                        <div class="widget-content nopadding" style="height: 300px; width: 100%; display: table-cell; vertical-align: middle; text-align: center;">
+                            {if $article.photo.small}
+                            <a href="?action=edit_thumb&amp;type=small&amp;id={$article.id}" title="Edytuj miniaturę dla listy">
+                                <img style="max-width: 500px;" src="{$article.photo.small}?{math equation='rand(0, 10000)'}" alt="{$article.title}" />
+                            </a>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Pliki do pobrania</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th width="40px">Lp.</th>
+                            <th>Plik</th>
+                            <th width="110px">Opcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach from=$pliki item=plik name=pp}
+                        <tr class="shadow_light">
+                            <td>{$smarty.foreach.pp.iteration}</td>
+                            <td><a href="{$plik.url}" target="_blank">{$plik.filename}</a></td>
+                            <td class="opcje">
+                                <a class="btn btn"  href="?action=delete_plik&amp;id={$plik.id}&amp;parent_id={$article.id}" title="Kasuj">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {foreachelse}
+                        <tr><td colspan="3">Brak plików w bazie. Aby dodać plik użyj formularza poniżej.</td></tr>
+                        {/foreach}
+                        <tr><td colspan="3">
+                                <form method="post" action="{$smarty.server.PHP_SELF}" enctype="multipart/form-data" class="form-horizontal">
+                                    <div class="control-group">
+                                        <label class="control-label">Dodaj nowy plik :</label>
+                                        <div class="controls">
+                                            <input class="file" type="file" name="plik" size="40" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Nazwaa :</label>
+                                        <div class="controls">
+                                            {section name=j1 loop=$JEZYK}
+                                            <input class="text title2" type="text" name="name[{$lang_id}]" placeholder="{$JEZYK[j1].name}" />
+                                            {/section}
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <input type="hidden" name="parent_type" value="{$files_type}" />
+                                        <input type="hidden" name="parent_id" value="{$article.id}" />
+                                        <input type="hidden" name="id" value="{$article.id}" />
+                                        <input class="btn btn-success" type="submit" name="action" value="Dodaj plik" />
+                                    </div>
+                                </form></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="widget-box">
+    <div class="widget-title"> <span class="icon"> <i class="icon-time"></i> </span>
+        <h5>Ostatnie działania</h5>
+    </div>
+    <div class="widget-content">
+        <div class="error_ex" style='overflow-x: auto'>
+            <table class="table table-bordered data-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Akcja</th>
+                        <th>Ścieżka</th>
+                        <th>Autor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {section name=z loop=$rejestr}
+                    <tr>
+                        <td width="150">{$rejestr[z].date_add}</td>
+                        <td width="100"><span class="label label-{if $rejestr[z].action=='dodano'}success{/if}{if $rejestr[z].action=='zmieniono'}info{/if}{if $rejestr[z].action=='usunięto'}important{/if}">{$rejestr[z].action}</span></td>
+                        <td><a href="{$rejestr[z].url}" title="{$rejestr[z].title}">{$rejestr[z].title}</a></td>
+                        <td>{$rejestr[z].login}</td>
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

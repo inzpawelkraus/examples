@@ -1,0 +1,55 @@
+<script type="text/javascript" src="{$TPL_URL}/js/pl-mapa.js"></script> 
+{include file="petycje/slider.html"}
+<div class="row">
+    <div class="container informations">
+        <div class="information box col-md-4 no-padding">
+            <div class="information head">
+                Nasza społeczność
+            </div>
+            
+            <div class="information content map">
+                <div id="map-pl">
+                    <ul id="polska">
+                        {section name=aa loop=$commMap}
+                        <li id="pl{$commMap[aa].id}"><a href="#{$commMap[aa].nr}">{$commMap[aa].state} {$commMap[aa].count} głosów</a></li>
+                        {/section}
+                    </ul>
+                </div>
+                <span class="title">{$commMap.count} osób</br> w całej Polsce.</span>
+                <span class="subtitle">Najedź na mapę, by poznać ilość </br>członków. Nazwa w danym regionie.</span>
+            </div>
+        </div>
+        <div class="information box last col-md-4 no-padding">
+            <div class="information head">
+                W tej chwili podpisują
+            </div>
+            <div class="information content">
+                <table class="activityTable">
+                    {section name=aa loop=$commHistory}
+                    <tr>
+                        <td>
+                            {$commHistory[aa].dateTimeUp}&nbsp;
+                        </td>
+                        <td>
+                            <span class="name"> {$commHistory[aa].author}</span><span class="state"> {$commHistory[aa].state}</span></br>
+                            <a href="{$commHistory[aa].url}" title="{$commHistory[aa].title}"><span class="title">{$commHistory[aa].title}</span></a>
+                        </td>
+                    </tr>
+                    {/section}
+                </table>
+                <div class="shadow"></div>
+            </div>
+        </div>
+        <div class="information box col-md-3 no-padding banner">
+            <div class="information content">
+                <span class="info">Nasza społeczność tworzy kampanie dając ludziom władzę w najważniejszych dla świata sprawach</span>
+                <span class="count">735 226</span>
+                <small>osób w całej polsce</small>
+                {include file="newsletter/form.html"}
+            </div>
+        </div>
+    </div>
+    <div class="container petitions">
+        {include file="petycje/glowna.html"}
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<section class="body page">
+    <div class="container petitions">
+        <div id="page-title"><h1>Dodaj nową petycję</h1></div>
+        <div class="alert alert-danger" style="display: none;"></div>
+        <form method="post" action="{$smarty.server.PHP_SELF}" enctype="multipart/form-data" id="contact_form" class="newpetition">
+            <div class="control-group">
+                <div class="controls">
+                    <input class="text required" type="text" name="imie" value="{$smarty.post.imie}" placeholder="{$LANG._KONTAKT_IMIE}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input class="text required" type="text" name="email" value="{$smarty.post.email}" placeholder="{$LANG._KONTAKT_EMAIL}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input class="text input required" type="number" name="age" value="" placeholder="Wiek wnioskodawcy" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    {section name=j1 loop=$JEZYK}
+                    <input class="text title required" type="text" name="title[{$JEZYK[j1].id}]" placeholder="Proponowany tytuł petycji"/>
+                    {/section}
+                </div>
+            </div>
+            <div class="control-group"> 
+                <label class="control-label">Sugerowane zdjęcie </label>
+                <div class="controls">
+                    <input class="file" type="file" name="photo" size="80" /><br />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    {section name=j3 loop=$JEZYK}
+                    <textarea class="seo-konf required" rows="6" name="content_short[{$JEZYK[j3].id}]" placeholder="Proponowany krótki opis"></textarea>
+                    {/section}
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    {section name=j4 loop=$JEZYK}
+                    <textarea id="edytor_{$JEZYK[j4].id}" class="required" name="content[{$JEZYK[j4].id}]" placeholder="Treść"></textarea>
+                    {/section}
+                </div>
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="addNewPetition" name="action" value="Dodaj" disabpled="disabled"/>
+                <input type="hidden" name="front" value="1" />
+            </div>
+        </form>
+        <p>* {$LANG._KONTAKT_WYPELNIJ}</p>
+    </div>
+</section>
+<script>
+    {literal}
+    $(".addNewPetition").click(function () {
+	form = $(this).parents("#contact_form");
+	form.find(".required").removeClass("error");
+	alertContainer = $(".alert");
+	errors = 0;
+	form.find(".required").each(function () {
+	    if ($(this).val() == '') {
+		errors++;
+		$(this).addClass("error");
+	    }
+	});
+	if (errors > 0) {
+	    alertContainer.fadeIn(200);
+	    alertContainer.html("Wypełnij wymagane pola");
+	    return false;
+	}
+    });
+    {/literal}
+</script>

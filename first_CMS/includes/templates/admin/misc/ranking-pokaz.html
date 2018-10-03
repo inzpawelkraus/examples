@@ -1,0 +1,36 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Historia frazy rankingu Google</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <a class="btn" href="?"><i class="icon-step-backward"></i> Powrót do listy</a>
+    <div class="widget-box">
+        <div class="widget-title"> <span class="icon"><i class="icon-list-ul"></i></span>
+            <h5>Ranking dla frazy: {$anchor}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th width="40">Lp.</th>
+                        <th>Data sprawdzania</th>
+                        <th>Pozycja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {section name=pp loop=$pozycje}
+                    <tr class="shadow_light">
+                        <td width="40" style="text-align: center">{$smarty.section.pp.iteration}</td>
+                        <td>{$pozycje[pp].date_add}</td>
+                        <td>{$pozycje[pp].pozycja}</td>
+                    </tr>
+
+                    {sectionelse}
+                    <tr>
+                        <td colspan="3">Brak wpisów w bazie.</td>
+                    </tr>
+                    {/section}
+                </tbody>
+            </table>
+        </div>
+    </div>

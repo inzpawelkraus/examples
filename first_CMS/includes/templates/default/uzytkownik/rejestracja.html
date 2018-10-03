@@ -1,0 +1,107 @@
+{literal}
+    <script type="text/javascript">
+    <!-- <![CDATA[
+        window.onload = function()
+        {
+            var f = document.getElementById('register');
+            var d = document.getElementById('typ_konta');
+
+            if (f.business.checked == true)
+            {
+                d.style.display = 'block';
+            } else
+            {
+    {/literal}{if $smarty.post.business!=1}{literal}
+                                        d.style.display = 'none';
+    {/literal}{/if}{literal}
+                                    }
+                                }
+
+    // ]CDATA]> -->
+    </script>
+{/literal}
+
+<!-- page-title -->  
+<div id="page-title"><h1>{$LANG._PAGE_REGISTER}</h1></div><!-- koniec: page-title -->
+
+<!-- page-content -->
+<div id="page-content">
+    <p>
+        {$LANG.USER_REGISTER_INFO}		
+    </p>
+    <p class="center"><b>
+            {$LANG._USER_STAR}		
+        </b></p>
+
+    {if $register_error}
+        <p class="center error">{$register_error}</p>
+    {/if}
+    <form method="post" id="register" action="{$smarty.server.PHP_SELF}">
+        <table align="center">
+            <tr>
+                <td width="250"><b>{$LANG._PAGE_LOGIN}</b> <span class="important">*</span><br /><small>{$LANG._USER_NAME_ACCOUNT}</small></td>
+                <td><input type="text" class="text" name="login" value="{$smarty.post.login}" size="30" /></td>			
+            </tr><tr>
+                <td><b>{$LANG._PAGE_NEW_PASS}</b> <span class="important">*</span><br /><small>{$LANG._USER_MIN_SING}</small></td>		
+                <td><input type="password" class="text" name="pass1" value="{$smarty.post.pass1}" size="30" /></td>	
+            </tr><tr>
+                <td><b>{$LANG._PAGE_REPEAT_PASS}</b> <span class="important">*</span><br /><small>{$LANG._USER_BAD_BOTH_PASS}</small></td>
+                <td><input type="password" class="text" name="pass2"  value="{$smarty.post.pass2}" size="30" /></td>
+            </tr><tr>
+                <td><b>{$LANG._USER_TYPE_ACCOUNT}</b><br /><small>{$LANG._USER_CHECK_TRUE}</small></td>
+                <td>
+                    <input id="b0" type="radio" name="business" onclick="hide('typ_konta');" value="0"{if $smarty.post.business==0} checked="true"{/if} />
+                    <label for="b0">{$LANG._USER_PERSON}</label><br />
+                    <input id="b1" type="radio" name="business" onclick="show('typ_konta');" value="1"{if $smarty.post.business==1} checked="true"{/if}  />
+                    <label for="b1">{$LANG._USER_FIRM}</label><br />				
+                </td>			
+            </tr><tr>
+                <td colspan="2">
+                    <table id="typ_konta" cellpaddin="0" cellspacing="0">	
+                        <tr>
+                            <td width="250"><b>{$LANG._USER_FIRM_NAME}</b> <span class="important">*</span></td>
+                            <td>
+                                <input type="text" class="text" name="firm_name" value="{$smarty.post.firm_name}" size="30" /></td>
+                        </tr><tr>
+                            <td><b>{$LANG._USER_NIP}</b> <span class="important">*</span><br /><small>{$LANG._USER_VAT}</small></td>
+                            <td><input type="text" class="text" name="nip" value="{$smarty.post.nip}" maxlength="10" size="10" /></td> 
+                        </tr>
+                    </table>
+                </td>
+            </tr><tr>
+                <td><b>{$LANG._PAGE_NAME}</b> <span class="important">*</span></td>
+                <td><input type="text" class="text" name="first_name" value="{$smarty.post.first_name}" size="30" /></td>
+            </tr><tr>
+                <td><b>{$LANG._PAGE_LASTNAME}</b> <span class="important">*</span></td>
+                <td><input type="text" class="text" name="last_name" value="{$smarty.post.last_name}" size="30" /></td>			
+            </tr><tr>
+                <td><b>{$LANG._PAGE_STREET}</b> <span class="important">*</span></td>
+                <td><input type="text" class="text" name="street" value="{$smarty.post.street}" size="30" /></td>		
+            </tr><tr>
+                <td><b>{$LANG._PAGE_NR_BUD}</b> <span class="important">*</span></td>
+                <td><input type="text" class="text" name="nr_bud" value="{$smarty.post.nr_bud}" size="10" /> <input type="text" class="text" name="nr_lok" value="{$smarty.post.nr_lok}" size="10" /></td>		
+            </tr><tr>
+                <td><b>{$LANG._PAGE_POSTCODE}</b> <span class="important">*</span><br /><small>{$LANG._PAGE_POSTCODE_TRUE}</small></td>
+                <td><input type="text" class="text" name="post_code" value="{$smarty.post.post_code}" size="6" maxlength="6" /></td>			
+            </tr><tr>
+                <td><b>{$LANG._PAGE_CITY}</b> <span class="important">*</span></td>
+                <td><input type="text" class="text" name="city" value="{$smarty.post.city}" size="30" /></td>			
+            </tr><tr>
+                <td><b>{$LANG._PAGE_PHONE}</b></td>
+                <td><input type="text" class="text" name="phone" value="{$smarty.post.phone}" size="30" /></td>
+            </tr><tr>
+                <td><b>{$LANG._PAGE_EMAIL}</b> <span class="important">*</span></td>
+                <td><input type="text" class="text" name="email1" value="{$smarty.post.email1}" size="30" /></td>			
+            </tr><tr>
+                <td><b>{$LANG._PAGE_REPEAT_EMAIL}</b><br /><small>{$LANG._USER_BOTH_EMAIL}</small></td>
+                <td><input type="text" class="text" name="email2" value="{$smarty.post.email2}" size="30" /></td>
+            </tr><tr>
+                <td></td>
+                <td>
+                    <input type="hidden" name="action" value="register" />
+                    <input class="submit" type="submit" value="{$LANG._PAGE_REG}" />				
+                </td>			
+            </tr>
+        </table>
+    </form>
+</div><!-- end page-content -->  

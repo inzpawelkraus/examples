@@ -1,0 +1,64 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Ustawienia</a><a class="current">Konfiguracja</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <form method="post" action="{$smarty.server.PHP_SELF}">
+        <div class="widget-box collapsible">
+            {section name=cc loop=$config}
+            <div class="widget-title"> <a data-toggle="collapse" href="#collapse_{$config[cc].name}"> <span class="icon"><i class="icon-arrow-right"></i></span>
+                    <h5>{$config[cc].name} / {$config[cc].description}</h5>
+                </a> </div>
+            <div id="collapse_{$config[cc].name}" class="collapse">
+                <div class="widget-content">
+                    <input type="hidden" name="conf_name_{$smarty.section.cc.iteration}" value="{$config[cc].name}" />
+                    <textarea name="conf_value_{$smarty.section.cc.iteration}">{$config[cc].value}</textarea>
+                </div>
+            </div>
+            {sectionelse}
+            <p class="center error">Brak opcji konfiguracyjnych!</p>
+            {/section}
+        </div>
+        <div class="form-actions">
+            <input type="hidden" name="ile_all" value="{$smarty.section.cc.total}" />
+            <input type="hidden" name="action" value="save_all" />
+            <input class="btn btn-success" type="submit"  value="Zapisz" />
+        </div>
+    </form>
+    <br />
+    {if $user.superadmin==1}
+    <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+            <h5>Dodaj nową opcję</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="#" method="get" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label">Klucz :</label>
+                    <div class="controls">
+                        <input class="text" type="text" name="conf_name" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Wartość :</label>
+                    <div class="controls">
+                        <textarea class="conf-d" name="conf_value"></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Opis :</label>
+                    <div class="controls">
+                        <textarea class="conf-d" name="conf_description"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <input type="hidden" value="dodaj" />
+                    <input type="hidden" name="action" value="new_option" />
+                    <input type="hidden" name="conf_table" value="config" />
+                    <button type="submit" class="btn btn-success">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {/if}
+</div>

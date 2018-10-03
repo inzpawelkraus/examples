@@ -1,0 +1,90 @@
+<div id="content-header">
+    <div id="breadcrumb"> <a href="/admin" title="Panel" class="tip-bottom"><i class="icon-home"></i> Panel</a> <a>Newsletter</a><a class="current">Wysyłka</a> </div>
+    <h1>{$pageTitle}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="alert alert-info">Aby wysłać biuletyn do wszystkich użytkowników proszę wypełnić poniższy formularz. Przycisk "Wyślij biuletyn" należy kliknąć tylko raz, w przeciwnym wypadku użytkownicy mogą dostać kilka kopii tego samego listu.<br />
+            W treści biuletynu można zastosować zmienne. Tekst <b>#IMIE#</b> zostanie zastąpiony imieniem podanym podczas rejestracji, natomiast <b>#NAZWISKO#</b> zostanie zamienione na nazwisko.<br />
+            Aktualnie w bazie jest <b>{$stats.all}</b> adresów, z czego <b>{$stats.active|default:"0"}</b> aktywnych.
+        </div>
+        <div class="alert alert-error">Masz <b>{$info.count}</b> kolejki szablonu <b>{$info.name}</b> do wysłania, <a href="?action=sender" class="sender_control">Wyslij</a>.
+        </div>
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Wczytaj szablon wiadomości</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" action="{$smarty.server.PHP_SELF}" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Dostępne szablony: </label>
+                        <div class="controls">
+                            {section name=m loop=$mail_tpl}
+                            {if $smarty.section.m.first}<select name="template">
+                                <option value=""{if $smarty.post.template==''} selected="true"{/if}>- wybierz -</option>
+                                {/if}
+                                <option value="{$mail_tpl[m].id}"{if $smarty.post.template=='{$mail_tpl[m].id}'} selected="true"{/if}>{$mail_tpl[m].name}</option>
+                                {if $smarty.section.m.last}</select>
+                            {/if}
+                            {/section}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn btn-success" type="submit" value="Wczytaj" />
+                        <input type="hidden" name="action" value="load_template" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="widget-box">
+            <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                <h5>Wysyłka</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <form method="post" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label">Wyślij do:</label>
+                        <div class="controls">
+                            <input type="radio" name="send" value="all" id="send_all"/> Wszystkich zapisanych<br />
+                            <input type="radio" name="send" value="one" id="send_one"/> Na podany adres
+                            <div id="send_one_email">
+                                Podaj adres, na jaki wysłać biuletyn: <input class="text" type="text" name="email" size="20" />	
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Tytuł biuletynu:</label>
+                        <div class="controls">
+                            <input class="text" type="text" name="mailing_subject" size="70" value="{$template.name}" {if $template}readonly{/if}/><br />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Treść:</label>
+                        <div class="controls">
+                            {if $template}
+                            <div style="height:300px; overflow:auto; border:1px solid #ccc; padding:5px;">
+                                {$template.value_org}                  
+                            </div>
+                            <input type="hidden" name="mailing_content" value="{$template.value}"/>
+                            {else}
+                            <textarea id="edytor" name="mailing_content" >{$template.value}</textarea>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="hidden" name="action" value="send" />	
+                        <input type="hidden" name="id" value="{$template.id}" />
+                        <input type="hidden" name="date_add" value="{$template.date_add}" />
+                        <input class="btn btn-success" type="submit" value="Wyślij biuletyn" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>

@@ -1,0 +1,87 @@
+#myBar {
+    display: block;
+    height: 100%;
+/*    -webkit-border-top-right-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;*/
+/*    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomright: 8px;*/
+/*    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-bottom-left-radius: 20px;*/
+/*    -moz-border-radius-topleft: 20px;
+    -moz-border-radius-bottomleft: 20px;*/
+/*    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;*/
+    background-color: rgb(43,194,83);
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, rgb(43,194,83)),
+        color-stop(1, rgb(84,240,84))
+        );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        rgb(43,194,83) 37%,
+        rgb(84,240,84) 69%
+        );
+    -webkit-box-shadow: 
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    -moz-box-shadow: 
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    box-shadow: 
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
+#myProgress > #myBar:after, .animate > #myBar > #myBar {
+   animation: 2s linear 0s normal none infinite running move;
+    background-color: #0abd5a;
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-size: 50px 50px;
+    bottom: 0;
+    content: "";
+    height: 40px;
+    left: 0;
+    overflow: visible;
+    position: absolute;
+    right: 0;
+    top: -10px;
+    z-index: 1;
+}
+
+.animate > #myBar:after {
+    display: none;
+}
+
+@-webkit-keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+.orange > #myBar {
+    background-color: #f1a165;
+    background-image: -moz-linear-gradient(top, #f1a165, #f36d0a);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f1a165),color-stop(1, #f36d0a));
+    background-image: -webkit-linear-gradient(#f1a165, #f36d0a); 
+}
+
+.red > #myBar {
+    background-color: #f0a3a3;
+    background-image: -moz-linear-gradient(top, #f0a3a3, #f42323);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f0a3a3),color-stop(1, #f42323));
+    background-image: -webkit-linear-gradient(#f0a3a3, #f42323);
+}
+
+.nostripes > #myBar > #myBar, .nostripes > #myBar:after {
+    -webkit-animation: none;
+    background-image: none;
+}
