@@ -20,7 +20,7 @@ Modules in project first_CMS:
 
 
 My secound project to present is "first_CRM".
-I made this with the framework CodeIgniter (semi to Laravel) more that 2 years ago for the needs of my company. After that I sold a few versions commercially (law firms, online store, ...).
+I made this with the CodeIgniter framework (semi to Laravel), One Page Application, more that 2 years ago for the needs of my company. After that I sold a few versions commercially (law firms, online store, ...).
 Modules in project first_CRM:
 - Calendar and events
 - Clients
@@ -35,3 +35,25 @@ Modules in project first_CRM:
 - Notes
 - Help module
 - ...
+
+
+
+Front-End framework that I used:
+- Bootstrap
+- Semantic UI
+- Jquerry
+- Angular JS
+- Angular UI
+- Fundation
+
+Some libraries:§
+- Chart.js
+- BX slider
+- OWL slider
+- Highcharts <- My favorite !!!!!! But not free for commercial :(
+- Flot
+- Layer slider
+- WOW slider
+- FullPage.js
+- DataTables
+- DynaTable
